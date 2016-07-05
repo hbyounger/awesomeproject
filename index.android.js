@@ -21,6 +21,7 @@ let {       CircleExample,
 } = samples
 //import {VectorWidget} from './components/VectorWidget'
 //import {VectorWidget} from './VectorWidget'
+var Game2048 = require('./2048/Game2048');
 /////////////////////////////////////////////////
 import ReactART from 'ReactNativeART'//art
 const {
@@ -161,23 +162,67 @@ export class SampleApp extends Component {
 }
 ////////////////////////////////////////////
 class AwesomeProject extends Component {
+/*<Text style={styles.welcome}>
+ Welcome to React Native!
+ </Text>
+ <Text style={styles.instructions}>
+ To get started, edit index.android.js
+ </Text>
+ <Text style={styles.instructions}>
+ Shake or press menu button for dev menu
+ </Text>
+ cd android && ./gradlew assembleRelease
+ <SampleApp style={styles.instructions}>
+ </SampleApp>
+ <Game2048>
+ </Game2048>
+ */
+    startX: number;
+    startY: number;
+    state: any;
 
+    constructor(props: {}) {
+        super(props);
+        this.state = {
+            board: new GameBoard(),
+        };
+        this.startX = 0;
+        this.startY = 0;
+    }
+
+    handleTouchStart(event: Object) {
+        this.startX = event.nativeEvent.pageX;
+        this.startY = event.nativeEvent.pageY;
+    }
+
+    handleTouchEnd(event: Object) {
+        if (this.state.board.hasWon()) {
+            return;
+        }
+
+        var deltaX = event.nativeEvent.pageX - this.startX;
+        var deltaY = event.nativeEvent.pageY - this.startY;
+
+        var direction = -1;
+        if (Math.abs(deltaX) > 3 * Math.abs(deltaY) && Math.abs(deltaX) > 30) {
+            direction = deltaX > 0 ? 2 : 0;
+        } else if (Math.abs(deltaY) > 3 * Math.abs(deltaX) && Math.abs(deltaY) > 30) {
+            direction = deltaY > 0 ? 3 : 1;
+        }
+
+        if (direction !== -1) {
+            this.setState({board: this.state.board.move(direction)});
+        }
+    }
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
-          <SampleApp>
-
-          </SampleApp>
-
+      <View style={styles.container}
+            onTouchStart={(event) => this.handleTouchStart(event)}
+            onTouchEnd={(event) => this.handleTouchEnd(event)}>
+          <Text style={styles.welcome}>
+             杨珂的游戏
+          </Text>
+          <SampleApp style={styles.instructions}/>
       </View>
     );
   }
