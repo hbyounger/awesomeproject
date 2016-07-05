@@ -218,7 +218,7 @@ class AwesomeProject extends Component {
                   onTouchStart={(event) => this.handleTouchStart(event)}
                   onTouchEnd={(event) => this.handleTouchEnd(event)}>
                 <Text style={styles.welcome}>
-                    杨珂的游戏
+                    杨珂的
                 </Text>
 
                 <SampleApp style={styles.instructions}/>
