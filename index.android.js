@@ -6,22 +6,24 @@
 
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
+    AppRegistry,
+    StyleSheet,
+    Text,
+    View
 } from 'react-native';
 import {
     icon,
     samples} from './Circle'
 //import {SampleApp} from './animatedPath'
 let {       CircleExample,
-        StrokeCircle,
-        StrokeOpacityCircle
-} = samples
+    StrokeCircle,
+    StrokeOpacityCircle
+    } = samples
 //import {VectorWidget} from './components/VectorWidget'
 //import {VectorWidget} from './VectorWidget'
 var Game2048 = require('./2048/Game2048');
+var MoviesApp = require('./Movies/MoviesApp.android')
+//import {} from './Movies/MoviesApp.android'
 /////////////////////////////////////////////////
 import ReactART from 'ReactNativeART'//art
 const {
@@ -125,7 +127,6 @@ var boxPath = new Path()
 export class SampleApp extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             value: 0,
         }
@@ -162,21 +163,21 @@ export class SampleApp extends Component {
 }
 ////////////////////////////////////////////
 class AwesomeProject extends Component {
-/*<Text style={styles.welcome}>
- Welcome to React Native!
- </Text>
- <Text style={styles.instructions}>
- To get started, edit index.android.js
- </Text>
- <Text style={styles.instructions}>
- Shake or press menu button for dev menu
- </Text>
- cd android && ./gradlew assembleRelease
- <SampleApp style={styles.instructions}>
- </SampleApp>
- <Game2048>
- </Game2048>
- */
+    /*<Text style={styles.welcome}>
+     Welcome to React Native!
+     </Text>
+     <Text style={styles.instructions}>
+     To get started, edit index.android.js
+     </Text>
+     <Text style={styles.instructions}>
+     Shake or press menu button for dev menu
+     </Text>
+     cd android && ./gradlew assembleRelease
+     <SampleApp style={styles.instructions}>
+     </SampleApp>
+     <Game2048>
+     </Game2048>
+     */
     startX: number;
     startY: number;
     state: any;
@@ -184,7 +185,7 @@ class AwesomeProject extends Component {
     constructor(props: {}) {
         super(props);
         this.state = {
-            board: new GameBoard(),
+            //board: new GameBoard(),
         };
         this.startX = 0;
         this.startY = 0;
@@ -196,10 +197,6 @@ class AwesomeProject extends Component {
     }
 
     handleTouchEnd(event: Object) {
-        if (this.state.board.hasWon()) {
-            return;
-        }
-
         var deltaX = event.nativeEvent.pageX - this.startX;
         var deltaY = event.nativeEvent.pageY - this.startY;
 
@@ -211,40 +208,43 @@ class AwesomeProject extends Component {
         }
 
         if (direction !== -1) {
-            this.setState({board: this.state.board.move(direction)});
+            //this.setState({board: this.state.board.move(direction)});
         }
     }
-  render() {
-    return (
-      <View style={styles.container}
-            onTouchStart={(event) => this.handleTouchStart(event)}
-            onTouchEnd={(event) => this.handleTouchEnd(event)}>
-          <Text style={styles.welcome}>
-             杨珂的游戏
-          </Text>
-          <SampleApp style={styles.instructions}/>
-      </View>
-    );
-  }
+    /*<MoviesApp>123</MoviesApp>*/
+    render() {
+        return (
+            <View style={styles.container}
+                  onTouchStart={(event) => this.handleTouchStart(event)}
+                  onTouchEnd={(event) => this.handleTouchEnd(event)}>
+                <Text style={styles.welcome}>
+                    杨珂的游戏
+                </Text>
+
+                <SampleApp style={styles.instructions}/>
+            </View>
+
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    },
+    welcome: {
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10,
+    },
+    instructions: {
+        textAlign: 'center',
+        color: '#333333',
+        marginBottom: 5,
+    },
 });
 
 AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
