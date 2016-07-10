@@ -22,7 +22,7 @@ const MAX_VEL = 11
 const CLICK_ACCEL = 3
 const BASE_VEL = 0.15
 
-export class VectorWidget extends Component {
+class VectorWidget extends Component {
 
   constructor(props) {
     super(props)
@@ -99,4 +99,4 @@ const RING_THREE_PATH = "M84,121 C130.391921,121 168,106.673113 168,89 C168,71.3
 const RING_TWO_ROTATE = new Transform().translate(84.000000, 89.000000).rotate(-240.000000).translate(-84.000000, -89.000000);
 const RING_THREE_ROTATE = new Transform().translate(84.000000, 89.000000).rotate(-300.000000).translate(-84.000000, -89.000000);
 
-//module.exports = VectorWidget;
+module.exports = VectorWidget;

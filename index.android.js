@@ -4,13 +4,17 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
     AppRegistry,
     StyleSheet,
     Text,
-    View
+    Navigator,
+    TouchableHighlight,
+    View,
+    ScrollView
 } from 'react-native';
+
 import {
     icon,
     samples} from './Circle'
@@ -19,10 +23,15 @@ let {       CircleExample,
     StrokeCircle,
     StrokeOpacityCircle
     } = samples
-//import {VectorWidget} from './components/VectorWidget'
+//import VectorWidget from './components/VectorWidget'
 //import {VectorWidget} from './VectorWidget'
-var Game2048 = require('./2048/Game2048');
-var MoviesApp = require('./Movies/MoviesApp.android')
+import Game2048 from './2048/Game2048'
+//var Game2048 = require('./2048/Game2048');
+//var MoviesApp = require('./Movies/MoviesApp.android')
+import MoviesApp from './Movies/MoviesApp.android'
+//var TicTacToeApp = require('./TicTacToe/TicTacToeApp')
+import TicTacToeApp from './TicTacToe/TicTacToeApp'
+
 //import {} from './Movies/MoviesApp.android'
 /////////////////////////////////////////////////
 import ReactART from 'ReactNativeART'//art
@@ -39,77 +48,6 @@ const MOUSE_DOWN_DRAG = 0.9
 const MAX_VEL = 11
 const CLICK_ACCEL = 3
 const BASE_VEL = 0.15
-
-const BORDER_PATH = "M3.00191459,4 C1.34400294,4 0,5.34785514 0,7.00550479 L0,220.994495 C0,222.65439 1.34239483,224 3.00191459,224 L276.998085,224 C278.655997,224 280,222.652145 280,220.994495 L280,7.00550479 C280,5.34561033 278.657605,4 276.998085,4 L3.00191459,4 Z M3.00191459,4";
-const BG_PATH     = "M3.00191459,1 C1.34400294,1 0,2.34785514 0,4.00550479 L0,217.994495 C0,219.65439 1.34239483,221 3.00191459,221 L276.998085,221 C278.655997,221 280,219.652145 280,217.994495 L280,4.00550479 C280,2.34561033 278.657605,1 276.998085,1 L3.00191459,1 Z M3.00191459,1";
-const BAR_PATH    = "M3.00191459,0 C1.34400294,0 0,1.34559019 0,3.00878799 L0,21 C0,21 0,21 0,21 L280,21 C280,21 280,21 280,21 L280,3.00878799 C280,1.34708027 278.657605,0 276.998085,0 L3.00191459,0 Z M3.00191459,0";
-const RED_DOT_PATH = "M12.5,17 C16.0898511,17 19,14.0898511 19,10.5 C19,6.91014895 16.0898511,4 12.5,4 C8.91014895,4 6,6.91014895 6,10.5 C6,14.0898511 8.91014895,17 12.5,17 Z M12.5,17";
-const YELLOW_DOT_PATH = "M31.5,17 C35.0898511,17 38,14.0898511 38,10.5 C38,6.91014895 35.0898511,4 31.5,4 C27.9101489,4 25,6.91014895 25,10.5 C25,14.0898511 27.9101489,17 31.5,17 Z M31.5,17";
-const GREEN_DOT_PATH = "M50.5,17 C54.0898511,17 57,14.0898511 57,10.5 C57,6.91014895 54.0898511,4 50.5,4 C46.9101489,4 44,6.91014895 44,10.5 C44,14.0898511 46.9101489,17 50.5,17 Z M50.5,17";
-const CENTER_DOT_PATH = "M84,105 C92.8365564,105 100,97.8365564 100,89 C100,80.1634436 92.8365564,73 84,73 C75.1634436,73 68,80.1634436 68,89 C68,97.8365564 75.1634436,105 84,105 Z M84,105";
-const RING_ONE_PATH = "M84,121 C130.391921,121 168,106.673113 168,89 C168,71.3268871 130.391921,57 84,57 C37.6080787,57 0,71.3268871 0,89 C0,106.673113 37.6080787,121 84,121 Z M84,121";
-const RING_TWO_PATH = "M84,121 C130.391921,121 168,106.673113 168,89 C168,71.3268871 130.391921,57 84,57 C37.6080787,57 0,71.3268871 0,89 C0,106.673113 37.6080787,121 84,121 Z M84,121";
-const RING_THREE_PATH = "M84,121 C130.391921,121 168,106.673113 168,89 C168,71.3268871 130.391921,57 84,57 C37.6080787,57 0,71.3268871 0,89 C0,106.673113 37.6080787,121 84,121 Z M84,121";
-const RING_TWO_ROTATE = new Transform().translate(84.000000, 89.000000).rotate(-240.000000).translate(-84.000000, -89.000000);
-const RING_THREE_ROTATE = new Transform().translate(84.000000, 89.000000).rotate(-300.000000).translate(-84.000000, -89.000000);
-
-
-class VectorWidget extends Component {
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            degrees: 0,
-            velocity: 0,
-            drag: MOUSE_UP_DRAG
-        }
-    }
-
-    componentDidMount() {
-        this._interval = window.setInterval(this.onTick.bind(this), 20);
-    }
-
-    componentWillUnmount() {
-        window.clearInterval(this._interval)
-    }
-
-    onTick() {
-        const nextDegrees = this.state.degrees + BASE_VEL + this.state.velocity
-        const nextVelocity = this.state.velocity * this.state.drag
-        this.setState({
-            degrees: nextDegrees,
-            velocity: nextVelocity
-        })
-    }
-
-    renderGraphic(rotation) {
-        return (
-            <Group>
-                <Group x={0} y={0}>
-                    <Shape fill="rgba(0,0,0,0.1)" d={BORDER_PATH} />
-                    <Shape fill="#7BC7BA" d={BG_PATH} />
-                    <Shape fill="#DCDCDC" d={BAR_PATH} />
-                    <Group>
-
-                    </Group>
-                </Group>
-            </Group>
-        )
-    }
-
-    render() {
-        //this.renderGraphic(this.state.degrees)
-        return (
-            <Surface width={300} height={300}>
-
-                {this.renderGraphic(this.state.degrees)}
-            </Surface>
-        )
-    }
-
-}
-
-
 ///////////////////////////////////////////
 import MetricsPath from 'art/metrics/path'
 
@@ -118,13 +56,13 @@ var SVG_PATH = 'M30,30L200,200L202,200L150,200L300,500L305,550';
 var pathMetrics = new MetricsPath(SVG_PATH);
 
 var boxPath = new Path()
-    .moveTo(-5, -5)
-    .line(10, 0)
-    .line(0, 10)
-    .line(-10, 0)
+    .moveTo(-10, -10)
+    .line(20, 0)
+    .line(0, 20)
+    .line(-20, 0)
     .close();
 
-export class SampleApp extends Component {
+class SampleApp extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -133,19 +71,35 @@ export class SampleApp extends Component {
     }
 
     componentDidMount() {
-        this._animateEntrance();
+
     }
 
     _animateEntrance() {
         requestAnimationFrame(() => {
-            this.setState({value: this.state.value + 15});
+            this.setState({value: this.state.value + 3});
             // This is some random number that I guessed to be the length of the Shape
             if (this.state.value <= pathMetrics.length) {
                 requestAnimationFrame(this._animateEntrance.bind(this));
             }
         });
     }
-
+    handleCellPress = ()=>{
+        this.state = {
+            value: 0,
+        }
+        this._animateEntrance();
+    }
+    /*
+     <TouchableHighlight
+     onPress={this.handleCellPress}
+     underlayColor="transparent"
+     activeOpacity={0.5}>
+     </TouchableHighlight>
+    <Cell
+     key={'cell' + 1}
+     player={1}
+     onPress={this.handleCellPress}
+     />*/
     render() {
         var point = pathMetrics.point(this.state.value);
         return (
@@ -153,12 +107,34 @@ export class SampleApp extends Component {
                 <Shape d={SVG_PATH}
                        stroke="black" strokeDash={[this.state.value,700]}
                        strokeWidth={2} />
+
                 <Shape d={boxPath}
                        x={point.x}
                        y={point.y}
                        stroke="blue" />
             </Surface>
         );
+    }
+}
+///////////////////////////////////////////
+class MyScene extends Component {
+    static propTypes = {
+        title: PropTypes.string.isRequired,
+        onForward: PropTypes.func.isRequired,
+        onBack: PropTypes.func.isRequired,
+    }
+    render() {
+        return (
+            <View>
+                <Text>Current Scene: { this.props.title }</Text>
+                <TouchableHighlight onPress={this.props.onForward}>
+                    <Text>Tap me to load the next scene</Text>
+                </TouchableHighlight>
+                <TouchableHighlight onPress={this.props.onBack}>
+                    <Text>Tap me to go back</Text>
+                </TouchableHighlight>
+            </View>
+        )
     }
 }
 ////////////////////////////////////////////
@@ -211,22 +187,211 @@ class AwesomeProject extends Component {
             //this.setState({board: this.state.board.move(direction)});
         }
     }
-    /*<MoviesApp>123</MoviesApp>*/
+    /*<MoviesApp>123</MoviesApp>
+    * <SampleApp style={styles.instructions}/>
+    * <View style={styles.container}
+     onTouchStart={(event) => this.handleTouchStart(event)}
+     onTouchEnd={(event) => this.handleTouchEnd(event)}>
+     <Text style={styles.welcome}>
+     杨珂的游戏
+     </Text>
+     <TicTacToeApp/>
+     </View>
+     initialRoute={{ title: 'My Initial Scene', index: 0 }}
+     renderScene={}
+     (route, navigator) =><MyScene
+     title={route.title}
+
+     // Function to call when a new scene should be displayed
+     onForward={ () => {
+     const nextIndex = route.index + 1;
+     navigator.push({
+     title: 'Scene ' + nextIndex,
+     index: nextIndex,
+     });
+     }}
+
+     // Function to call to go back to the previous scene
+     onBack={() => {
+     if (route.index > 0) {
+     navigator.pop();
+     }
+     }}
+     />*/
+    /*
+     *  - Navigator.SceneConfigs.PushFromRight (default)
+     *  - Navigator.SceneConfigs.FloatFromRight
+     *  - Navigator.SceneConfigs.FloatFromLeft
+     *  - Navigator.SceneConfigs.FloatFromBottom
+     *  - Navigator.SceneConfigs.FloatFromBottomAndroid
+     *  - Navigator.SceneConfigs.FadeAndroid
+     *  - Navigator.SceneConfigs.HorizontalSwipeJump
+     *  - Navigator.SceneConfigs.HorizontalSwipeJumpFromRight
+     *  - Navigator.SceneConfigs.VerticalUpSwipeJump
+     *  - Navigator.SceneConfigs.VerticalDownSwipeJump*/
+    configureScene = (route)=>{
+        return Navigator.SceneConfigs.FadeAndroid;
+    }
+    renderScene(router, navigator){
+        var Component = null;
+        this._navigator = navigator;
+        switch(router.name){
+            case "welcome":
+                Component = WelcomeView;
+                break;
+            case "feed":
+                Component = FeedView;
+                break;
+            default: //default view
+                Component = DefaultView;
+        }
+        return <Component navigator={navigator} />
+    }
+    componentDidMount() {
+        var navigator = this._navigator;
+        /*BackAndroid.addEventListener('hardwareBackPress', function() {
+            if (navigator && navigator.getCurrentRoutes().length > 1) {
+                navigator.pop();
+                return true;
+            }
+            return false;
+        });*/
+    }
+    componentWillUnmount() {
+        //BackAndroid.removeEventListener('hardwareBackPress');
+    }
     render() {
         return (
-            <View style={styles.container}
-                  onTouchStart={(event) => this.handleTouchStart(event)}
-                  onTouchEnd={(event) => this.handleTouchEnd(event)}>
-                <Text style={styles.welcome}>
-                    杨珂的游戏
-                </Text>
-
-                <SampleApp style={styles.instructions}/>
-            </View>
-
+            <Navigator
+                initialRoute={ {name: 'welcome'} }
+                configureScene={ this.configureScene }
+                renderScene={ this.renderScene }
+            />
         );
     }
 }
+
+var FeedView = React.createClass({
+    goBack(){
+        this.props.navigator.push({name:"default"});
+    },
+
+    render() {
+        return (
+            <ScrollView>
+                <Text style={styles.instructions} onPress={this.goBack} >
+                    I am Feed View! Tab to default view!
+                </Text>
+                <SampleApp style={styles.instructions}/>
+            </ScrollView>
+        )
+    }
+});
+
+var Cell = React.createClass({
+    cellStyle() {
+        switch (this.props.player) {
+            case 1:
+                return styles.cellX;
+            case 2:
+                return styles.cellO;
+            default:
+                return null;
+        }
+    },
+
+    textContents() {
+        switch (this.props.player) {
+            case 1:
+                return 'X';
+            case 2:
+                return 'O';
+            default:
+                return '';
+        }
+    },
+    textStyle() {
+        switch (this.props.player) {
+            case 1:
+                return styles.cellTextX;
+            case 2:
+                return styles.cellTextO;
+            default:
+                return {};
+        }
+    },
+    render() {
+        return (
+            <TouchableHighlight
+                onPress={this.props.onPress}
+                underlayColor="transparent"
+                activeOpacity={0.5}>
+                <View style={[styles.cell, this.cellStyle()]}>
+                    <Text style={[styles.cellText, this.textStyle()]}>
+                        {this.textContents()}
+                    </Text>
+                </View>
+            </TouchableHighlight>
+        );
+    }
+});
+class WelcomeView extends Component {
+    /*constructor(props){
+        super(props);
+        this.State = { board: new Board(), player: 1 };
+    }
+
+
+    handleCellPress = (row: number, col: number)=> {
+        if (this.state.board.hasMark(row, col)) {
+            return;
+        }
+
+        this.setState({
+            board: this.state.board.mark(row, col, this.state.player),
+        });
+    }*/
+
+    onPressFeed = ()=> {
+        this.props.navigator.push({name: 'feed'});
+    }
+    render() {
+        /*var rows = this.state.board.grid.map((cells, row) =>
+            <View key={'row' + row} style={styles.row}>
+                {cells.map((player, col) =>
+                    <Cell
+                        key={'cell' + col}
+                        player={player}
+                        onPress={this.handleCellPress.bind(this, row, col)}
+                    />
+                )}
+            </View>
+        );*/
+        return (
+            <View style={styles.container}>
+                <Text style={styles.instructions} onPress={this.onPressFeed} >
+                    This is welcome view.Tap to go to feed view.
+                </Text>
+                <TicTacToeApp/>
+            </View>
+        );
+    }
+}
+
+var DefaultView = React.createClass({
+    onPressWelcome() {
+        this.props.navigator.push({name: 'welcome'});
+    },
+
+    render(){
+        return (
+            <ScrollView>
+                <Text style={styles.instructions} onPress={this.onPressWelcome}>Default view</Text>
+                <Game2048/>
+            </ScrollView>
+        )
+    }
+});
 
 const styles = StyleSheet.create({
     container: {
@@ -244,6 +409,32 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#333333',
         marginBottom: 5,
+    },
+    cell: {
+        width: 16,
+        height: 16,
+        borderRadius: 3,
+        backgroundColor: '#7b8994',
+        margin: 2,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    cellX: {
+        backgroundColor: '#72d0eb',
+    },
+    cellO: {
+        backgroundColor: '#7ebd26',
+    },
+    cellText: {
+        fontSize: 50,
+        fontFamily: 'AvenirNext-Bold',
+    },
+    cellTextX: {
+        color: '#19a9e5',
+    },
+    cellTextO: {
+        color: '#b9dc2f',
     },
 });
 
