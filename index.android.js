@@ -43,6 +43,9 @@ const {
     Transform
     } = ReactART
 
+import configureStore from './store/configureStore'
+const store = configureStore()
+
 const MOUSE_UP_DRAG = 0.978
 const MOUSE_DOWN_DRAG = 0.9
 const MAX_VEL = 11
@@ -366,6 +369,7 @@ class WelcomeView extends Component {
                     />
                 )}
             </View>
+
         );*/
         return (
             <View style={styles.container}>
