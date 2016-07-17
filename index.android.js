@@ -45,6 +45,12 @@ const {
 
 import configureStore from './store/configureStore'
 const store = configureStore()
+import { Provider } from 'react-redux'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as actions from './actions/login'
+import BackAndroid from 'BackAndroid'
+import Cell from './components/Cell'
 
 const MOUSE_UP_DRAG = 0.978
 const MOUSE_DOWN_DRAG = 0.9
@@ -199,23 +205,24 @@ class AwesomeProject extends Component {
      杨珂的游戏
      </Text>
      <TicTacToeApp/>
-     </View>
-     initialRoute={{ title: 'My Initial Scene', index: 0 }}
+     </View>*/
+
+     /*initialRoute={{ title: 'My Initial Scene', index: 0 }}
      renderScene={}
      (route, navigator) =><MyScene
-     title={route.title}
+     title={route.title}*/
 
      // Function to call when a new scene should be displayed
-     onForward={ () => {
+     /*onForward={ () => {
      const nextIndex = route.index + 1;
      navigator.push({
      title: 'Scene ' + nextIndex,
      index: nextIndex,
      });
-     }}
+     }}*/
 
      // Function to call to go back to the previous scene
-     onBack={() => {
+     /*onBack={() => {
      if (route.index > 0) {
      navigator.pop();
      }
@@ -235,8 +242,9 @@ class AwesomeProject extends Component {
     configureScene = (route)=>{
         return Navigator.SceneConfigs.FadeAndroid;
     }
-    renderScene(router, navigator){
-        var Component = null;
+
+   /* renderScene = (router, navigator)=>{
+        let Component = null;
         this._navigator = navigator;
         switch(router.name){
             case "welcome":
@@ -245,39 +253,68 @@ class AwesomeProject extends Component {
             case "feed":
                 Component = FeedView;
                 break;
+            case "default":
+                Component = DefaultView;
+                break;
             default: //default view
                 Component = DefaultView;
         }
-        return <Component navigator={navigator} />
+        return <Component navigator = {navigator} />
+    }*/
+    renderScene = (router, navigator)=>{
+        let Component = null;
+        let list = [{top : 0 ,left : 0},{top : 500,left : 0},{top : 500,left : 300},{top : 0,left : 300}];
+        this._navigator = navigator;
+        switch(router.name){
+            case "welcome":
+                Component = <WelcomeView
+                    list = {list}
+                    navigator = {navigator} />;
+                break;
+            case "feed":
+                Component = <FeedView navigator = {navigator} />;
+                break;
+            case "default":
+                Component = <DefaultView navigator = {navigator} />;
+                break;
+            default: //default view
+                Component = <DefaultView navigator = {navigator} />;
+        }
+        return Component;
     }
     componentDidMount() {
-        var navigator = this._navigator;
-        /*BackAndroid.addEventListener('hardwareBackPress', function() {
+        let navigator = this._navigator;
+        BackAndroid.addEventListener('hardwareBackPress', function() {
             if (navigator && navigator.getCurrentRoutes().length > 1) {
                 navigator.pop();
                 return true;
             }
             return false;
-        });*/
+        });
     }
+
     componentWillUnmount() {
-        //BackAndroid.removeEventListener('hardwareBackPress');
+        BackAndroid.removeEventListener('hardwareBackPress');
     }
+
     render() {
         return (
-            <Navigator
-                initialRoute={ {name: 'welcome'} }
-                configureScene={ this.configureScene }
-                renderScene={ this.renderScene }
-            />
+            <Provider store={store}>
+                <Navigator
+                    initialRoute={{name: 'welcome'}}
+                    configureScene={ this.configureScene }
+                    renderScene={ this.renderScene }
+                />
+            </Provider>
         );
     }
 }
 
-var FeedView = React.createClass({
-    goBack(){
+class FeedView extends Component{
+
+    goBack = ()=>{
         this.props.navigator.push({name:"default"});
-    },
+    }
 
     render() {
         return (
@@ -289,72 +326,9 @@ var FeedView = React.createClass({
             </ScrollView>
         )
     }
-});
+}
 
-var Cell = React.createClass({
-    cellStyle() {
-        switch (this.props.player) {
-            case 1:
-                return styles.cellX;
-            case 2:
-                return styles.cellO;
-            default:
-                return null;
-        }
-    },
-
-    textContents() {
-        switch (this.props.player) {
-            case 1:
-                return 'X';
-            case 2:
-                return 'O';
-            default:
-                return '';
-        }
-    },
-    textStyle() {
-        switch (this.props.player) {
-            case 1:
-                return styles.cellTextX;
-            case 2:
-                return styles.cellTextO;
-            default:
-                return {};
-        }
-    },
-    render() {
-        return (
-            <TouchableHighlight
-                onPress={this.props.onPress}
-                underlayColor="transparent"
-                activeOpacity={0.5}>
-                <View style={[styles.cell, this.cellStyle()]}>
-                    <Text style={[styles.cellText, this.textStyle()]}>
-                        {this.textContents()}
-                    </Text>
-                </View>
-            </TouchableHighlight>
-        );
-    }
-});
 class WelcomeView extends Component {
-    /*constructor(props){
-        super(props);
-        this.State = { board: new Board(), player: 1 };
-    }
-
-
-    handleCellPress = (row: number, col: number)=> {
-        if (this.state.board.hasMark(row, col)) {
-            return;
-        }
-
-        this.setState({
-            board: this.state.board.mark(row, col, this.state.player),
-        });
-    }*/
-
     onPressFeed = ()=> {
         this.props.navigator.push({name: 'feed'});
     }
@@ -371,21 +345,28 @@ class WelcomeView extends Component {
             </View>
 
         );*/
+        let PList = [];
+        if(this.props.list) {
+            this.props.list.forEach((ele)=> {
+                PList.push(<Cell Point = {ele}/>)//<TicTacToeApp/>
+            })
+        }
+
         return (
             <View style={styles.container}>
                 <Text style={styles.instructions} onPress={this.onPressFeed} >
                     This is welcome view.Tap to go to feed view.
                 </Text>
-                <TicTacToeApp/>
+                { PList }
             </View>
         );
     }
 }
 
-var DefaultView = React.createClass({
-    onPressWelcome() {
+class DefaultView extends Component{
+    onPressWelcome = ()=>{
         this.props.navigator.push({name: 'welcome'});
-    },
+    }
 
     render(){
         return (
@@ -395,7 +376,7 @@ var DefaultView = React.createClass({
             </ScrollView>
         )
     }
-});
+}
 
 const styles = StyleSheet.create({
     container: {
