@@ -4,7 +4,7 @@
 import React,{ Component } from 'react';
 import ReactNative from 'react-native';
 var {
-    AppRegistry,
+    Navigator,
     StyleSheet,
     Text,
     TouchableHighlight,
@@ -22,40 +22,20 @@ class PointData extends Component{
 
     render(){
         return (
-            <View style={{position: 'absolute',top: top, left: left}}>
-                <TouchableHighlight
-                    onPress={this.onPress}
-                    underlayColor="transparent"
-                    activeOpacity={0.5}>
-                    <View style={[styles.cell, this.cellStyle()]}>
-                        <Text style={[styles.cellText, this.textStyle()]}>
-                            {this.textContents()}
-                        </Text>
-                    </View>
-                </TouchableHighlight>
-            </View>
+            <TouchableHighlight
+                onPress={this.onPress}
+                underlayColor="transparent"
+                activeOpacity={0.5}>
+                <View style={styles.overlay}>
+                    <Text style={[styles.cellText, this.textStyle()]}>
+                        {123}
+                    </Text>
+                </View>
+            </TouchableHighlight>
         );
     }
 }
-
-function mapStateToProps(state){
-    return {
-        cell : state.cell.toJS()
-    }
-}
-
-function mapDispatchToProps(dispatch){
-    return {
-        actions : bindActionCreators( actions , dispatch )
-    }
-}
-//export default
-export default connect(
-    mapStateToProps ,
-    mapDispatchToProps
-)(PointData);
-
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -149,3 +129,21 @@ var styles = StyleSheet.create({
         fontFamily: 'AvenirNext-DemiBold',
     },
 });
+
+function mapStateToProps(state){
+    return {
+        cell : state.cell.toJS()
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return {
+        actions : bindActionCreators( actions , dispatch )
+    }
+}
+//export default
+export default connect(
+    mapStateToProps ,
+    mapDispatchToProps
+)(PointData);
+

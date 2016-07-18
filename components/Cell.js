@@ -4,7 +4,6 @@
 import React,{ Component } from 'react';
 import ReactNative from 'react-native';
 var {
-    AppRegistry,
     StyleSheet,
     Text,
     TouchableHighlight,
@@ -83,24 +82,8 @@ class Cell extends Component{
         );
     }
 }
-function mapStateToProps(state){
-    return {
-        cell : state.cell.toJS()
-    }
-}
 
-function mapDispatchToProps(dispatch){
-    return {
-        actions : bindActionCreators( actions , dispatch )
-    }
-}
-//export default
-export default connect(
-    mapStateToProps ,
-    mapDispatchToProps
-)(Cell);
-
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -194,3 +177,21 @@ var styles = StyleSheet.create({
         fontFamily: 'AvenirNext-DemiBold',
     },
 });
+
+function mapStateToProps(state){
+    return {
+        cell : state.cell.toJS()
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return {
+        actions : bindActionCreators( actions , dispatch )
+    }
+}
+//export default
+export default connect(
+    mapStateToProps ,
+    mapDispatchToProps
+)(Cell);
+

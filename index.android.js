@@ -15,34 +15,6 @@ import {
     ScrollView
 } from 'react-native';
 
-import {
-    icon,
-    samples} from './Circle'
-//import {SampleApp} from './animatedPath'
-let {       CircleExample,
-    StrokeCircle,
-    StrokeOpacityCircle
-    } = samples
-//import VectorWidget from './components/VectorWidget'
-//import {VectorWidget} from './VectorWidget'
-//import Game2048 from './2048/Game2048'
-//var Game2048 = require('./2048/Game2048');
-//var MoviesApp = require('./Movies/MoviesApp.android')
-//import MoviesApp from './Movies/MoviesApp.android'
-//var TicTacToeApp = require('./TicTacToe/TicTacToeApp')
-//import TicTacToeApp from './TicTacToe/TicTacToeApp'
-
-//import {} from './Movies/MoviesApp.android'
-/////////////////////////////////////////////////
-import ReactART from 'ReactNativeART'//art
-const {
-    Path,
-    Group,
-    Shape,
-    Surface,
-    Transform
-    } = ReactART
-
 import configureStore from './store/configureStore'
 const store = configureStore()
 import { Provider } from 'react-redux'
@@ -50,7 +22,9 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from './actions/login'
 import BackAndroid from 'BackAndroid'
-import Cell from './components/Cell'
+
+import FeedView from './components/FeedView'//
+import WelcomeView from './components/WelcomeView'
 
 const MOUSE_UP_DRAG = 0.978
 const MOUSE_DOWN_DRAG = 0.9
@@ -58,75 +32,9 @@ const MAX_VEL = 11
 const CLICK_ACCEL = 3
 const BASE_VEL = 0.15
 ///////////////////////////////////////////
-import MetricsPath from 'art/metrics/path'
 
-var SVG_PATH = 'M30,30L200,200L202,200L150,200L300,500L305,550';
-
-var pathMetrics = new MetricsPath(SVG_PATH);
-
-var boxPath = new Path()
-    .moveTo(-10, -10)
-    .line(20, 0)
-    .line(0, 20)
-    .line(-20, 0)
-    .close();
-
-class SampleApp extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: 0,
-        }
-    }
-
-    componentDidMount() {
-
-    }
-
-    _animateEntrance() {
-        requestAnimationFrame(() => {
-            this.setState({value: this.state.value + 3});
-            // This is some random number that I guessed to be the length of the Shape
-            if (this.state.value <= pathMetrics.length) {
-                requestAnimationFrame(this._animateEntrance.bind(this));
-            }
-        });
-    }
-    handleCellPress = ()=>{
-        this.state = {
-            value: 0,
-        }
-        this._animateEntrance();
-    }
-    /*
-     <TouchableHighlight
-     onPress={this.handleCellPress}
-     underlayColor="transparent"
-     activeOpacity={0.5}>
-     </TouchableHighlight>
-    <Cell
-     key={'cell' + 1}
-     player={1}
-     onPress={this.handleCellPress}
-     />*/
-    render() {
-        var point = pathMetrics.point(this.state.value);
-        return (
-            <Surface width={320} height={600}>
-                <Shape d={SVG_PATH}
-                       stroke="black" strokeDash={[this.state.value,700]}
-                       strokeWidth={2} />
-
-                <Shape d={boxPath}
-                       x={point.x}
-                       y={point.y}
-                       stroke="blue" />
-            </Surface>
-        );
-    }
-}
 ///////////////////////////////////////////
-class MyScene extends Component {
+/*class MyScene extends Component {
     static propTypes = {
         title: PropTypes.string.isRequired,
         onForward: PropTypes.func.isRequired,
@@ -145,7 +53,7 @@ class MyScene extends Component {
             </View>
         )
     }
-}
+}*/
 ////////////////////////////////////////////
 class AwesomeProject extends Component {
     /*<Text style={styles.welcome}>
@@ -306,60 +214,6 @@ class AwesomeProject extends Component {
                     renderScene={ this.renderScene }
                 />
             </Provider>
-        );
-    }
-}
-
-class FeedView extends Component{
-
-    goBack = ()=>{
-        this.props.navigator.push({name:"default"});
-    }
-
-    render() {
-        return (
-            <ScrollView>
-                <Text style={styles.instructions} onPress={this.goBack} >
-                    I am Feed View! Tab to default view!
-                </Text>
-                <SampleApp style={styles.instructions}/>
-            </ScrollView>
-        )
-    }
-}
-
-class WelcomeView extends Component {
-    onPressFeed = ()=> {
-        this.props.navigator.push({name: 'feed'});
-    }
-    render() {
-        /*var rows = this.state.board.grid.map((cells, row) =>
-            <View key={'row' + row} style={styles.row}>
-                {cells.map((player, col) =>
-                    <Cell
-                        key={'cell' + col}
-                        player={player}
-                        onPress={this.handleCellPress.bind(this, row, col)}
-                    />
-                )}
-            </View>
-
-        );*/
-        let PList = [],
-            index = 0 ;
-        if(this.props.list) {
-            this.props.list.forEach((ele)=> {
-                PList.push(<Cell Point = {ele} key = {index++}/>)//<TicTacToeApp/>
-            })
-        }
-
-        return (
-            <View style={styles.container}>
-                <Text style={styles.instructions} onPress={this.onPressFeed} >
-                    This is welcome view.Tap to go to feed view.
-                </Text>
-                { PList }
-            </View>
         );
     }
 }
