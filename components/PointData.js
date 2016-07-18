@@ -1,5 +1,5 @@
 /**
- * Created by younger on 2016/7/17.
+ * Created by wxk on 2016/7/18.
  */
 import React,{ Component } from 'react';
 import ReactNative from 'react-native';
@@ -14,59 +14,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../actions/cell';
 
-class Cell extends Component{
-    cellStyle() {
-        switch (1) {
-            case 1:
-                return styles.cellX;
-            case 2:
-                return styles.cellO;
-            default:
-                return null;
-        }
-    }
+class PointData extends Component{
 
-    textStyle() {
-        switch (1) {
-            case 1:
-                return styles.cellTextX;
-            case 2:
-                return styles.cellTextO;
-            default:
-                return {};
-        }
-    }
+    onPress=()=>{
 
-    textContents() {
-        /*    switch (this.props.num) {
-         case 1:
-         return 'X';
-         case 2:
-         return 'O';
-         default:
-         return '';
-         }*/
-        let { cell } = this.props;
-        return cell.value;
-    }
-    onPress = ()=>{
-        let { actions } = this.props;
-        actions.test(this.props.num);
-    }
+    };
 
-
-    /*  position(top,left){
-     return({position: 'absolute', top: {top}, left: {left}})
-     }
-     ,this.position(this.props.ptop,this.props.pleft)
-     */
-    render() {
-        //{{top: 200, left: 300,}}
-        if(this.props.Point){
-
-        }
-        let top = this.props.Point.top,
-            left = this.props.Point.left;
+    render(){
         return (
             <View style={{position: 'absolute',top: top, left: left}}>
                 <TouchableHighlight
@@ -83,6 +37,7 @@ class Cell extends Component{
         );
     }
 }
+
 function mapStateToProps(state){
     return {
         cell : state.cell.toJS()
@@ -98,7 +53,7 @@ function mapDispatchToProps(dispatch){
 export default connect(
     mapStateToProps ,
     mapDispatchToProps
-)(Cell);
+)(PointData);
 
 var styles = StyleSheet.create({
     container: {

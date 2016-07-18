@@ -25,12 +25,12 @@ let {       CircleExample,
     } = samples
 //import VectorWidget from './components/VectorWidget'
 //import {VectorWidget} from './VectorWidget'
-import Game2048 from './2048/Game2048'
+//import Game2048 from './2048/Game2048'
 //var Game2048 = require('./2048/Game2048');
 //var MoviesApp = require('./Movies/MoviesApp.android')
-import MoviesApp from './Movies/MoviesApp.android'
+//import MoviesApp from './Movies/MoviesApp.android'
 //var TicTacToeApp = require('./TicTacToe/TicTacToeApp')
-import TicTacToeApp from './TicTacToe/TicTacToeApp'
+//import TicTacToeApp from './TicTacToe/TicTacToeApp'
 
 //import {} from './Movies/MoviesApp.android'
 /////////////////////////////////////////////////
@@ -263,7 +263,7 @@ class AwesomeProject extends Component {
     }*/
     renderScene = (router, navigator)=>{
         let Component = null;
-        let list = [{top : 0 ,left : 0},{top : 500,left : 0},{top : 500,left : 300},{top : 0,left : 300}];
+        let list = [{top : 0 ,left : 0},{top : 550,left : 0},{top : 550,left : 330},{top : 0,left : 330},{top : 270,left : 165}];
         this._navigator = navigator;
         switch(router.name){
             case "welcome":
@@ -345,10 +345,11 @@ class WelcomeView extends Component {
             </View>
 
         );*/
-        let PList = [];
+        let PList = [],
+            index = 0 ;
         if(this.props.list) {
             this.props.list.forEach((ele)=> {
-                PList.push(<Cell Point = {ele}/>)//<TicTacToeApp/>
+                PList.push(<Cell Point = {ele} key = {index++}/>)//<TicTacToeApp/>
             })
         }
 
@@ -369,10 +370,11 @@ class DefaultView extends Component{
     }
 
     render(){
+        //<Game2048/>
         return (
             <ScrollView>
                 <Text style={styles.instructions} onPress={this.onPressWelcome}>Default view</Text>
-                <Game2048/>
+
             </ScrollView>
         )
     }
