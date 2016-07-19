@@ -12,7 +12,8 @@ import {
     Navigator,
     TouchableHighlight,
     View,
-    ScrollView
+    ScrollView,
+    Dimensions
 } from 'react-native';
 
 import configureStore from './store/configureStore'
@@ -23,15 +24,10 @@ import { bindActionCreators } from 'redux'
 import * as actions from './actions/login'
 import BackAndroid from 'BackAndroid'
 
-import FeedView from './components/FeedView'//
+import FeedView from './components/FeedView'//DefaultView
 import WelcomeView from './components/WelcomeView'
-
-const MOUSE_UP_DRAG = 0.978
-const MOUSE_DOWN_DRAG = 0.9
-const MAX_VEL = 11
-const CLICK_ACCEL = 3
-const BASE_VEL = 0.15
-///////////////////////////////////////////
+import DefaultView from './components/DefaultView'
+import PointData from  './components/PointData'
 
 ///////////////////////////////////////////
 /*class MyScene extends Component {
@@ -66,10 +62,6 @@ class AwesomeProject extends Component {
      Shake or press menu button for dev menu
      </Text>
      cd android && ./gradlew assembleRelease
-     <SampleApp style={styles.instructions}>
-     </SampleApp>
-     <Game2048>
-     </Game2048>
      */
     startX: number;
     startY: number;
@@ -82,6 +74,12 @@ class AwesomeProject extends Component {
         };
         this.startX = 0;
         this.startY = 0;
+        this.list = [
+            {top : 0 ,left : 0},
+            {top : Dimensions.get('window').height -45,left : 0},
+            {top : Dimensions.get('window').height -45,left : Dimensions.get('window').width-20},
+            {top : 0,left : Dimensions.get('window').width-20},
+            {top : 270,left : 165}];
     }
 
     handleTouchStart(event: Object) {
@@ -171,12 +169,17 @@ class AwesomeProject extends Component {
     }*/
     renderScene = (router, navigator)=>{
         let Component = null;
-        let list = [{top : 0 ,left : 0},{top : 550,left : 0},{top : 550,left : 330},{top : 0,left : 330},{top : 270,left : 165}];
+        /*let list = [
+            {top : 0 ,left : 0},
+            {top : 550,left : 0},
+            {top : 550,left : 330},
+            {top : 0,left : 330},
+            {top : 270,left : 165}];*/
         this._navigator = navigator;
         switch(router.name){
             case "welcome":
                 Component = <WelcomeView
-                    list = {list}
+                    list = {this.list}
                     navigator = {navigator} />;
                 break;
             case "feed":
@@ -184,6 +187,9 @@ class AwesomeProject extends Component {
                 break;
             case "default":
                 Component = <DefaultView navigator = {navigator} />;
+                break;
+            case "point":
+                Component = <PointData navigator = {navigator} />;
                 break;
             default: //default view
                 Component = <DefaultView navigator = {navigator} />;
@@ -215,22 +221,6 @@ class AwesomeProject extends Component {
                 />
             </Provider>
         );
-    }
-}
-
-class DefaultView extends Component{
-    onPressWelcome = ()=>{
-        this.props.navigator.push({name: 'welcome'});
-    }
-
-    render(){
-        //<Game2048/>
-        return (
-            <ScrollView>
-                <Text style={styles.instructions} onPress={this.onPressWelcome}>Default view</Text>
-
-            </ScrollView>
-        )
     }
 }
 

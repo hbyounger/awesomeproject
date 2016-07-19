@@ -9,6 +9,11 @@ var {
     Text,
     TouchableHighlight,
     View,
+    ListView,
+    MapView,
+    Modal,
+    Picker,
+    TextInput
     } = ReactNative;
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -27,7 +32,7 @@ class PointData extends Component{
                 underlayColor="transparent"
                 activeOpacity={0.5}>
                 <View style={styles.overlay}>
-                    <Text style={[styles.cellText, this.textStyle()]}>
+                    <Text style={styles.cellText}>
                         {123}
                     </Text>
                 </View>
@@ -60,9 +65,7 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
     },
-
     // CELL
-
     cell: {
         width: 20,
         height: 20,

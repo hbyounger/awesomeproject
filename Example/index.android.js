@@ -1,1 +1,1 @@
-import './../main';
+import './../components/main';

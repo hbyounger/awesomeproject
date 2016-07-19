@@ -22,9 +22,13 @@ import {
     Svg,
     Circle,
     Line
-} from './elements';
-import * as examples from './Example/examples';
+} from '../elements';
+import * as examples from '../Example/examples';
 import Modal from 'react-native-root-modal';//react-native-root-modal
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../actions/cell';
+
 const hairline = StyleSheet.hairlineWidth;
 
 const styles = StyleSheet.create({
@@ -254,4 +258,20 @@ class SvgExample extends Component {
     }
 }
 
-AppRegistry.registerComponent('AwesomeProject', () => SvgExample);//ArtSvgExample
+function mapStateToProps(state){
+    return {
+        cell : state.cell.toJS()
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return {
+        actions : bindActionCreators( actions , dispatch )
+    }
+}
+//export default
+export default connect(
+    mapStateToProps ,
+    mapDispatchToProps
+)(SvgExample);
+//AppRegistry.registerComponent('AwesomeProject', () => SvgExample);//ArtSvgExample

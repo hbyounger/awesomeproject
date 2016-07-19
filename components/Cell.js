@@ -12,6 +12,7 @@ var {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../actions/cell';
+import PointData from './PointData'
 
 class Cell extends Component{
     cellStyle() {
@@ -50,7 +51,8 @@ class Cell extends Component{
     }
     onPress = ()=>{
         let { actions } = this.props;
-        actions.test(this.props.num);
+        this.props.navigator.push({name: 'point'});
+        //actions.test(this.props.num);
     }
 
 

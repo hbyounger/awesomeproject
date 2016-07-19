@@ -1,5 +1,5 @@
 /**
- * Created by wxk on 2016/7/18.
+ * Created by wxk on 2016/7/19.
  */
 import React,{ Component } from 'react';
 import {
@@ -8,49 +8,29 @@ import {
     Text,
     TouchableHighlight,
     View,
+    ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../actions/cell';
-import Cell from './Cell'
+import Cell from './Cell'//SvgExample
+import SvgExample from './main'
+import Example from './Map'
 
-class WelcomeView extends Component {
-    onPressFeed = ()=> {
-        this.props.navigator.push({name: 'feed'});
+class DefaultView extends Component{
+    onPressWelcome = ()=>{
+        this.props.navigator.push({name: 'welcome'});
     }
-    render() {
-        /*var rows = this.state.board.grid.map((cells, row) =>
-         <View key={'row' + row} style={styles.row}>
-         {cells.map((player, col) =>
-         <Cell
-         key={'cell' + col}
-         player={player}
-         onPress={this.handleCellPress.bind(this, row, col)}
-         />
-         )}
-         </View>
 
-         );*/
-        let PList = [],
-            index = 0 ;
-        if(this.props.list) {
-            this.props.list.forEach((ele)=> {
-                PList.push(<Cell
-                    Point = {ele}
-                    key = {index++}
-                    navigator = {this.props.navigator}
-                />)//<TicTacToeApp/>
-            })
-        }
-
+    render(){
+        //<Game2048/><SvgExample/>
         return (
-            <View style={styles.container}>
-                <Text style={styles.instructions} onPress={this.onPressFeed} >
-                    This is welcome view.Tap to go to feed view.
-                </Text>
-                { PList }
-            </View>
-        );
+            <ScrollView>
+                <Text style={styles.instructions} onPress={this.onPressWelcome}>Default view</Text>
+
+                <Example/>
+            </ScrollView>
+        )
     }
 }
 
@@ -114,5 +94,4 @@ function mapDispatchToProps(dispatch){
 export default connect(
     mapStateToProps ,
     mapDispatchToProps
-)(WelcomeView);
-
+)(DefaultView);
