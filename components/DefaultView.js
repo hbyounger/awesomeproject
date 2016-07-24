@@ -23,12 +23,11 @@ class DefaultView extends Component{
     }
 
     render(){
-        //<Game2048/><SvgExample/>
+        //<SvgExample/><Example/><Game2048/>
         return (
             <ScrollView>
                 <Text style={styles.instructions} onPress={this.onPressWelcome}>Default view</Text>
 
-                <Example/>
             </ScrollView>
         )
     }

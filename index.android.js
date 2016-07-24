@@ -76,8 +76,8 @@ class AwesomeProject extends Component {
         this.startY = 0;
         this.list = [
             {top : 0 ,left : 0},
-            {top : Dimensions.get('window').height -45,left : 0},
-            {top : Dimensions.get('window').height -45,left : Dimensions.get('window').width-20},
+            {top : Dimensions.get('window').height-45,left : 0},
+            {top : Dimensions.get('window').height-45,left : Dimensions.get('window').width-20},
             {top : 0,left : Dimensions.get('window').width-20},
             {top : 270,left : 165}];
     }
@@ -146,7 +146,7 @@ class AwesomeProject extends Component {
      *  - Navigator.SceneConfigs.VerticalUpSwipeJump
      *  - Navigator.SceneConfigs.VerticalDownSwipeJump*/
     configureScene = (route)=>{
-        return Navigator.SceneConfigs.FadeAndroid;
+        return Navigator.SceneConfigs.FloatFromRight;
     }
 
    /* renderScene = (router, navigator)=>{
@@ -185,9 +185,9 @@ class AwesomeProject extends Component {
             case "feed":
                 Component = <FeedView navigator = {navigator} />;
                 break;
-            case "default":
+/*            case "default":
                 Component = <DefaultView navigator = {navigator} />;
-                break;
+                break;*/
             case "point":
                 Component = <PointData navigator = {navigator} />;
                 break;

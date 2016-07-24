@@ -13,7 +13,10 @@ var {
     MapView,
     Modal,
     Picker,
-    TextInput
+    TextInput,
+    ScrollView,
+    Dimensions,
+    DrawerLayoutAndroid
     } = ReactNative;
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -21,22 +24,45 @@ import * as actions from '../actions/cell';
 
 class PointData extends Component{
 
+    constructor(props){
+        super(props)
+        this.navigationView = (
+            <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the
+                Drawer!</Text>)
+    }
+
+
+
     onPress=()=>{
 
     };
 
     render(){
+        this.navigationView
         return (
-            <TouchableHighlight
-                onPress={this.onPress}
-                underlayColor="transparent"
-                activeOpacity={0.5}>
-                <View style={styles.overlay}>
-                    <Text style={styles.cellText}>
-                        {123}
-                    </Text>
-                </View>
-            </TouchableHighlight>
+            <ScrollView>
+                <TouchableHighlight
+                    onPress={this.onPress}
+                    underlayColor="transparent"
+                    activeOpacity={0.5}>
+                    <View style={[styles.container,{width:Dimensions.get('window').width,height:Dimensions.get('window').height-25}]}>
+                        <Text style={styles.welcome}>
+                            {123}
+                        </Text>
+                        <TextInput/>
+                        <DrawerLayoutAndroid
+                            drawerWidth={300}
+                            drawerPosition={DrawerLayoutAndroid.positions.Right}
+                            renderNavigationView={() =>{
+                            (<Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the
+                Drawer!</Text>)
+                            }}>
+                            <Text style={{margin:10, fontSize: 15, textAlign: 'right'}}>Hello</Text>
+                            <Text style={{margin:10, fontSize: 15, textAlign: 'right'}}>World!</Text>
+                        </DrawerLayoutAndroid>
+                    </View>
+                </TouchableHighlight>
+            </ScrollView>
         );
     }
 }
@@ -48,6 +74,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         width:500,
         height:100,
+    },
+    welcome: {
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10,
     },
     title: {
         fontFamily: 'Chalkduster',

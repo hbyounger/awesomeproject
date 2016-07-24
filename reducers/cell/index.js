@@ -2,7 +2,6 @@
  * Created by younger on 2016/7/17.
  */
 import Immutable from 'immutable'
-
 const $$initialState = Immutable.fromJS({});
 
 export default function cell( $$state = $$initialState , action ){
