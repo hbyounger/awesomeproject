@@ -25,10 +25,12 @@ import * as actions from '../actions/cell';
 class PointData extends Component{
 
     constructor(props){
-        super(props)
+        super(props);
         this.navigationView = (
             <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the
-                Drawer!</Text>)
+                Drawer!</Text>);
+        this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.dataSource = this.ds.cloneWithRows([{title:'row1',content:'yes'}]);//, 'row 2','row 3','row 4','row 5','row 6','row 7','row 8'
     }
 
 
@@ -50,22 +52,24 @@ class PointData extends Component{
                             {123}
                         </Text>
                         <TextInput/>
-                        <DrawerLayoutAndroid
-                            drawerWidth={300}
-                            drawerPosition={DrawerLayoutAndroid.positions.Right}
-                            renderNavigationView={() =>{
-                            (<Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the
-                Drawer!</Text>)
-                            }}>
-                            <Text style={{margin:10, fontSize: 15, textAlign: 'right'}}>Hello</Text>
-                            <Text style={{margin:10, fontSize: 15, textAlign: 'right'}}>World!</Text>
-                        </DrawerLayoutAndroid>
+                        <ListView
+                            dataSource={this.dataSource}
+                            renderRow={(rowData) =><Text>{rowData.title}{rowData.content}</Text>}
+                        />
                     </View>
                 </TouchableHighlight>
             </ScrollView>
         );
     }
 }
+/*<DrawerLayoutAndroid
+ drawerWidth={300}
+ drawerPosition={DrawerLayoutAndroid.positions.Right}
+ renderNavigationView={() =>{(<Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>)
+ }}>
+ <Text style={{margin:10, fontSize: 15, textAlign: 'right'}}>Hello</Text>
+ <Text style={{margin:10, fontSize: 15, textAlign: 'right'}}>World!</Text>
+ </DrawerLayoutAndroid>*/
 const styles = StyleSheet.create({
     container: {
         flex: 1,
