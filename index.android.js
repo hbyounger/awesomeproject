@@ -28,6 +28,7 @@ import FeedView from './components/FeedView'//DefaultView
 import WelcomeView from './components/WelcomeView'
 import DefaultView from './components/DefaultView'
 import PointData from  './components/PointData'
+import MapView from './components/MapView'
 
 ///////////////////////////////////////////
 /*class MyScene extends Component {
@@ -179,11 +180,15 @@ class AwesomeProject extends Component {
         switch(router.name){
             case "welcome":
                 Component = <WelcomeView
-                    list = {this.list}
                     navigator = {navigator} />;
                 break;
             case "feed":
                 Component = <FeedView navigator = {navigator} />;
+                break;
+            case "map":
+                Component = <MapView
+                    list = {this.list}
+                    navigator = {navigator} />;
                 break;
 /*            case "default":
                 Component = <DefaultView navigator = {navigator} />;

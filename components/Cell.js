@@ -76,7 +76,7 @@ class Cell extends Component{
                     activeOpacity={0.5}>
                     <View style={[styles.cell, this.cellStyle()]}>
                         <Text style={[styles.cellText, this.textStyle()]}>
-                            {this.textContents()}
+                            {this.props.key}
                         </Text>
                     </View>
                 </TouchableHighlight>
@@ -114,9 +114,9 @@ const styles = StyleSheet.create({
     // CELL
 
     cell: {
-        width: 20,
-        height: 20,
-        borderRadius: 10,
+        width: 16,
+        height: 16,
+        borderRadius: 8,
         backgroundColor: '#7b8994',
         margin: 2,
         flex: 1,
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     // CELL TEXT
 
     cellText: {
-        //fontSize: 50,
+        fontSize: 5,
         fontFamily: 'AvenirNext-Bold',
     },
     cellTextX: {

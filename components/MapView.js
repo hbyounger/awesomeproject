@@ -14,9 +14,9 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../actions/cell';
 import Cell from './Cell'
 
-class WelcomeView extends Component {
-    onPressMap = ()=> {
-        this.props.navigator.push({name: 'map'});
+class MapView extends Component {
+    onPressFeed = ()=> {
+        this.props.navigator.push({name: 'feed'});
     }
     render() {
         /*var rows = this.state.board.grid.map((cells, row) =>
@@ -45,9 +45,7 @@ class WelcomeView extends Component {
 
         return (
             <View style={styles.container}>
-                <Text style={styles.instructions} onPress={this.onPressMap} >
-                    在点位图上选取点
-                </Text>
+                { PList }
             </View>
         );
     }
@@ -113,5 +111,5 @@ function mapDispatchToProps(dispatch){
 export default connect(
     mapStateToProps ,
     mapDispatchToProps
-)(WelcomeView);
+)(MapView);
 
