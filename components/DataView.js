@@ -12,7 +12,9 @@ import {
     Text,
     TouchableHighlight,
     View,
-    ScrollView
+    TextInput,
+    ScrollView,
+    Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -50,27 +52,41 @@ var rightArray = [
     {name: 'kjhk', sex: 'sex', age:'age', firstName: 'firstName', seconName:'seconName', hehe:'hehe'},
 ];
 
-var GridTest = React.createClass({
+class GridTest extends Component{
 
-    getInitialState(){
-        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        var ds1 = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        return{
+    constructor(props){
+        super(props);
+        let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        let ds1 = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        let offsetval = {x : 0, y: 0};
+        this.state ={
             leftDataSource: ds.cloneWithRows(array),
             rightdataSource: ds.cloneWithRows(rightArray),
             leftListOffset: {x : 0, y: 0},
             loaded: false,
+        }
+    }
+
+    /*getInitialState(){
+
+        return{
+
         };
-    },
+    }*/
 
     componentDidMount(){
         this.setState({
                 loaded: true,
             }
         );
-    },
-
-    render: function() {
+    }
+    onPressWelcome(){
+        //this.props.navigator.push({name: 'welcome'});
+        let alertMessage = 'Credibly reintermediate next-generation potentialities after goal-oriented ' +
+            'catalysts for change. Dynamically revolutionize.';
+        Alert.alert('Alert Title',alertMessage,[{text: 'OK', onPress: () => console.log('OK Pressed!')},]);
+    }
+    render() {
         return (
             <View style = {styles.container}>
                 <View style = {styles.left}>
@@ -120,7 +136,6 @@ var GridTest = React.createClass({
                                     <Text>123</Text>
                                 </View>
                             </View>
-
                             <ListView
                                 ref = {RIGHT_LISTVIEW}
                                 // scrollEventThrottle={500}
@@ -130,15 +145,13 @@ var GridTest = React.createClass({
                                 renderRow = {this._rightRenderRow}
                             />
                         </View>
-
                     </ScrollView>
                 </View>
-
             </View>
         );
-    },
+    }
 
-    onScroll(){
+    onScroll = ()=>{
         if (this.state.loaded) {
             var rightList = this.refs[RIGHT_LISTVIEW];
             var y1 = rightList.scrollProperties.offset;
@@ -146,9 +159,9 @@ var GridTest = React.createClass({
                 leftListOffset :{x: 0 , y: y1}
             });
         }
-    },
+    }
 
-    _leftRenderRow (rowData: string, sectionID: number, rowID: number){
+    _leftRenderRow = (rowData: string, sectionID: number, rowID: number)=>{
         return (
             <View style={styles.leftListRow}>
                 <Text >
@@ -156,20 +169,27 @@ var GridTest = React.createClass({
                 </Text>
             </View>
         );
-    },
+    }
 
-    _rightRenderRow (rowData: object, sectionID: number, rowID: number){
+    _rightRenderRow = (rowData: object, sectionID: number, rowID: number)=>{
+
+        //() => Alert.alert('Alert Title',alertMessage,[{text: 'OK', onPress: () => console.log('OK Pressed!')},])
         return (
             <View style = {styles.rightListRow}>
                 <View style = {styles.cellView}>
                     <Text>{rowData.name}</Text>
                 </View>
                 <View style = {styles.cellView}>
-                    <Text>{rowData.name}</Text>
+                    <TextInput>{rowData.name}</TextInput>
                 </View>
-                <View style = {styles.cellView}>
-                    <Text>{rowData.name}</Text>
-                </View>
+                <TouchableHighlight
+                    onPress={onPressWelcome()}
+                    underlayColor="transparent"
+                    activeOpacity={0.5}>
+                    <View style = {styles.cell}>
+                        <Text>{rowData.sex}</Text>
+                    </View>
+                </TouchableHighlight>
                 <View style = {styles.cellView}>
                     <Text>{rowData.name}</Text>
                 </View>
@@ -182,18 +202,18 @@ var GridTest = React.createClass({
             </View>
         );
     }
-});
+}
 
 class DataView extends Component{
-    onPressWelcome = ()=>{
+    /*onPressWelcome = ()=>{
         this.props.navigator.push({name: 'welcome'});
-    }
-
+    }*/
+//navigator = {this.props.navigator}
     render(){
         //<SvgExample/><Example/><Game2048/><Text style={styles.instructions} onPress={this.onPressWelcome}>Default view</Text>
         return (
             <ScrollView>
-                <GridTest/>
+                <GridTest navigator = {this.props.navigator}/>
             </ScrollView>
         )
     }
@@ -289,7 +309,17 @@ var styles = StyleSheet.create({
         alignItems: 'center',      // 水平局中
         justifyContent: 'center',  // 垂直居中
     },
-
+    cell: {
+        width:100,
+        height:40,
+        backgroundColor: '#7b8994',
+        //margin: 2,
+        flex: 1,
+        borderRightWidth:1,
+        borderBottomWidth:1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     cellView:{
         width:100,
         height:40,
