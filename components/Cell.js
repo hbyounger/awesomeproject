@@ -51,7 +51,7 @@ class Cell extends Component{
     }
     onPress = ()=>{
         let { actions } = this.props;
-        this.props.navigator.push({name: 'point'});
+        this.props.navigator.push({name: 'data'});
         //actions.test(this.props.num);
     }
 

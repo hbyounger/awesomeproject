@@ -29,6 +29,7 @@ import WelcomeView from './components/WelcomeView'
 import DefaultView from './components/DefaultView'
 import PointData from  './components/PointData'
 import MapView from './components/MapView'
+import DataView from './components/DataView'
 
 ///////////////////////////////////////////
 /*class MyScene extends Component {
@@ -195,6 +196,10 @@ class AwesomeProject extends Component {
                 break;*/
             case "point":
                 Component = <PointData navigator = {navigator} />;
+                break;
+            //
+            case "data":
+                Component = <DataView navigator = {navigator} />;
                 break;
             default: //default view
                 Component = <DefaultView navigator = {navigator} />;
