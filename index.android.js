@@ -31,7 +31,7 @@ import PointData from  './components/PointData'
 import MapView from './components/MapView'
 import DataView from './components/DataView'
 import LoginView from './components/Login'
-
+import {PickerExample} from './components/Picker'
 ///////////////////////////////////////////
 /*class MyScene extends Component {
     static propTypes = {
@@ -205,7 +205,10 @@ class AwesomeProject extends Component {
             case "login":
                 Component = <LoginView navigator = {navigator} />;
                 break;
-            default: //default view
+            case "picker":
+                Component = <PickerExample navigator = {navigator} />;
+                break;
+            default: //default view PickerExample
                 Component = <DefaultView navigator = {navigator} />;
         }
         return Component;

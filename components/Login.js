@@ -33,6 +33,14 @@ class TestInput extends Component {
                     source={require('../img/app_icon.jpg')}/>
                 <TextInput
                     style={styles.style_user_input}
+                    placeholder='服务器地址'
+                    numberOfLines={1}
+                    autoFocus={true}
+                    underlineColorAndroid={'transparent'}
+                    textAlign='center'
+                />
+                <TextInput
+                    style={styles.style_user_input}
                     placeholder='用户名/手机号/邮箱'
                     numberOfLines={1}
                     autoFocus={true}

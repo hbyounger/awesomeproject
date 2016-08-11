@@ -80,11 +80,14 @@ class GridTest extends Component{
             }
         );
     }
-    onPressWelcome(){
+    onPressWelcome = ()=>{
         //this.props.navigator.push({name: 'welcome'});
         let alertMessage = 'Credibly reintermediate next-generation potentialities after goal-oriented ' +
             'catalysts for change. Dynamically revolutionize.';
         Alert.alert('Alert Title',alertMessage,[{text: 'OK', onPress: () => console.log('OK Pressed!')},]);
+    }
+    onPressPicker = ()=>{
+        this.props.navigator.push({name: 'picker'});
     }
     render() {
         return (
@@ -114,12 +117,15 @@ class GridTest extends Component{
                                 showsVerticalScrollIndicator = {false}
                                 horizontal = {true}>
                         <View style = {styles.contentView}>
-
                             <View style = {{width: 600 , height: 40, flexDirection:'row'}}>
-
-                                <View style = {styles.titleView}>
-                                    <Text>123</Text>
-                                </View>
+                                <TouchableHighlight
+                                    onPress={this.onPressPicker}
+                                    underlayColor="transparent"
+                                    activeOpacity={0.5}>
+                                    <View style = {styles.titleView}>
+                                        <Text>123</Text>
+                                    </View>
+                                </TouchableHighlight>
                                 <View style = {styles.titleView}>
                                     <Text>123</Text>
                                 </View>
@@ -176,20 +182,15 @@ class GridTest extends Component{
         //() => Alert.alert('Alert Title',alertMessage,[{text: 'OK', onPress: () => console.log('OK Pressed!')},])
         return (
             <View style = {styles.rightListRow}>
-                <View style = {styles.cellView}>
-                    <Text>{rowData.name}</Text>
+                <View style = {styles.cell}>
+                    <Text>{rowData.sex}</Text>
                 </View>
                 <View style = {styles.cellView}>
                     <TextInput>{rowData.name}</TextInput>
                 </View>
-                <TouchableHighlight
-                    onPress={onPressWelcome()}
-                    underlayColor="transparent"
-                    activeOpacity={0.5}>
-                    <View style = {styles.cell}>
-                        <Text>{rowData.sex}</Text>
-                    </View>
-                </TouchableHighlight>
+                <View style = {styles.cellView}>
+                    <Text>{rowData.name}</Text>
+                </View>
                 <View style = {styles.cellView}>
                     <Text>{rowData.name}</Text>
                 </View>
