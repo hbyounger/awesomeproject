@@ -44,11 +44,16 @@ class WelcomeView extends Component {
         }
 
         return (
-            <View style={styles.container}>
-                <Text style={styles.instructions} onPress={this.onPressMap} >
-                    在点位图上选取点
-                </Text>
-            </View>
+            <TouchableHighlight
+                onPress={this.onPressMap}
+                underlayColor="transparent"
+                activeOpacity={0.5}>
+                <View style={styles.style_view_commit}>
+                    <Text style={{color:'#fff'}} >
+                        在钻孔图上选取点
+                    </Text>
+                </View>
+            </TouchableHighlight>
         );
     }
 }
@@ -95,6 +100,16 @@ const styles = StyleSheet.create({
     },
     cellTextO: {
         color: '#b9dc2f',
+    },
+    style_view_commit:{
+        marginTop:15,
+        marginLeft:10,
+        marginRight:10,
+        backgroundColor:'#63B8FF',
+        height:35,
+        borderRadius:5,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
 

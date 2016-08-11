@@ -10,20 +10,116 @@ import {
     Text,
     Image,
     View,
-    TextInput
+    TextInput,
+    TouchableHighlight
 } from 'react-native';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as loginActions from '../actions/login';
 
-export class LoginView extends Component {
-    /*onPress = ()=>{
+class TestInput extends Component {
+    onPress = ()=>{
         let { actions } = this.props;
-        this.props.navigator.push({name: 'data'});
+        this.props.navigator.push({name: 'welcome'});
         //actions.test(this.props.num);
-    }*/
-/**/
+    }
+
+    render() {
+        return (
+            <View style={{backgroundColor:'#f4f4f4',flex:1}}>
+                <Image
+                    style={styles.style_image}
+                    source={require('../img/app_icon.jpg')}/>
+                <TextInput
+                    style={styles.style_user_input}
+                    placeholder='用户名/手机号/邮箱'
+                    numberOfLines={1}
+                    autoFocus={true}
+                    underlineColorAndroid={'transparent'}
+                    textAlign='center'
+                />
+                <View
+                    style={{height:1,backgroundColor:'#f4f4f4'}}
+                />
+                <TextInput
+                    style={styles.style_pwd_input}
+                    placeholder='密码'
+                    numberOfLines={1}
+                    underlineColorAndroid={'transparent'}
+                    secureTextEntry={true}
+                    textAlign='center'
+                />
+                <TouchableHighlight
+                    onPress={this.onPress}
+                    underlayColor="transparent"
+                    activeOpacity={0.5}>
+                    <View
+                        style={styles.style_view_commit}
+                    >
+                        <Text
+                            style={{color:'#fff'}}
+                        >
+                            登录
+                        </Text>
+
+                    </View>
+                </TouchableHighlight>
+                <View style={{flex:1,flexDirection:'row',alignItems: 'flex-end',bottom:10}}>
+                    <Text style={styles.style_view_unlogin}>
+                        无法登录?
+                    </Text>
+                    <Text style={styles.style_view_register}>
+                        新用户
+                    </Text>
+                </View>
+            </View>
+        );
+    }
+}
+const styles =StyleSheet.create({
+    style_image:{
+        borderRadius:35,
+        height:70,
+        width:70,
+        marginTop:40,
+        alignSelf:'center',
+    },
+    style_user_input:{
+        backgroundColor:'#fff',
+        marginTop:10,
+        height:40,
+    },
+    style_pwd_input:{
+        backgroundColor:'#fff',
+        height:40,
+    },
+    style_view_commit:{
+        marginTop:15,
+        marginLeft:10,
+        marginRight:10,
+        backgroundColor:'#63B8FF',
+        height:35,
+        borderRadius:5,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    style_view_unlogin:{
+        fontSize:12,
+        color:'#63B8FF',
+        marginLeft:10,
+    },
+    style_view_register:{
+        fontSize:12,
+        color:'#63B8FF',
+        marginRight:10,
+        alignItems:'flex-end',
+        flex:1,
+        flexDirection:'row',
+        textAlign:'right',
+    }
+});
+/*export class LoginView extends Component {
     render() {
         return (
             <View>
@@ -35,38 +131,40 @@ export class LoginView extends Component {
                         <Image alt="加载中..." title="图片加载中..." src="http://statics.2cto.com/images/s_nopic.gif"/>
                 </View>
                 <View>
-                    <TextInput placeholder="'QQ号/手机号/邮箱'/" underlinecolorandroid="'transparent'">
+                    <TextInput placeholder="'手机号/邮箱'/" underlinecolorandroid="'transparent'">
                         <Text></Text>
                         <TextInput placeholder="'密码'" securetextentry="{true}/" underlinecolorandroid="'transparent'">
                         </TextInput>
                     </TextInput>
                 </View>
-                <TextInput placeholder="'QQ号/手机号/邮箱'/" underlinecolorandroid="'transparent'">
-                    <TextInput placeholder="'密码'" securetextentry="{true}/" underlinecolorandroid="'transparent'">
+                <TextInput placeholder="'手机号/邮箱'/" underlinecolorandroid="'transparent'">
 
-                    </TextInput>
                 </TextInput>
+                <TextInput placeholder="'密码'" securetextentry="{true}/" underlinecolorandroid="'transparent'">
+
+                </TextInput>
+                <View>
+                    <View>
+                        <Text>登 录</Text>
+                    </View>
+                    <View></View>
+                    <View>
+                        <View>
+                            <Text>无法登录？</Text>
+                        </View>
+                        <View>
+                            <Text>新用户</Text>
+                        </View>
+                    </View>
+                </View>
             </View>)
     }
-}
+}*/
 /*
 
- <View>
- <View>
- <Text>登 录</Text>
- </View>
- <View></View>
- <View>
- <View>
- <Text>无法登录？</Text>
- </View>
- <View>
- <Text>新用户</Text>
- </View>
- </View>
- </View>
+
  */
-const styles = {
+/*const styles = {
     container: {
         flex: 1,
         backgroundColor: '#FFFFFF'
@@ -146,9 +244,8 @@ const styles = {
         fontSize: 15,
         color: '#1DBAF1',
     }
-};
+};*/
 
-/*
 function mapStateToProps(state){
     return {
         login : state.login.toJS()
@@ -164,4 +261,4 @@ function mapDispatchToProps(dispatch){
 export default connect(
     mapStateToProps ,
     mapDispatchToProps
-)(LoginView);*/
+)(TestInput);

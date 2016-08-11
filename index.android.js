@@ -30,7 +30,7 @@ import DefaultView from './components/DefaultView'
 import PointData from  './components/PointData'
 import MapView from './components/MapView'
 import DataView from './components/DataView'
-import {LoginView} from './components/Login'
+import LoginView from './components/Login'
 
 ///////////////////////////////////////////
 /*class MyScene extends Component {
