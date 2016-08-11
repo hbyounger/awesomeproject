@@ -30,6 +30,7 @@ import DefaultView from './components/DefaultView'
 import PointData from  './components/PointData'
 import MapView from './components/MapView'
 import DataView from './components/DataView'
+import {LoginView} from './components/Login'
 
 ///////////////////////////////////////////
 /*class MyScene extends Component {
@@ -201,6 +202,9 @@ class AwesomeProject extends Component {
             case "data":
                 Component = <DataView navigator = {navigator} />;
                 break;
+            case "login":
+                Component = <LoginView navigator = {navigator} />;
+                break;
             default: //default view
                 Component = <DefaultView navigator = {navigator} />;
         }
@@ -225,7 +229,7 @@ class AwesomeProject extends Component {
         return (
             <Provider store={store}>
                 <Navigator
-                    initialRoute={{name: 'welcome'}}
+                    initialRoute={{name: 'login'}}
                     configureScene={ this.configureScene }
                     renderScene={ this.renderScene }
                 />
