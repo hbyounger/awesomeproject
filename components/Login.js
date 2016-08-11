@@ -30,7 +30,7 @@ class TestInput extends Component {
             <View style={{backgroundColor:'#f4f4f4',flex:1}}>
                 <Image
                     style={styles.style_image}
-                    source={require('../img/app_icon.jpg')}/>
+                    source={require('../img/app_icon.png')}/>
                 <TextInput
                     style={styles.style_user_input}
                     placeholder='服务器地址'

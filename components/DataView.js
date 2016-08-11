@@ -14,8 +14,10 @@ import {
     View,
     TextInput,
     ScrollView,
-    Alert
+    Alert,
+    Picker
 } from 'react-native';
+const Item = Picker.Item;
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../actions/cell';
@@ -64,6 +66,12 @@ class GridTest extends Component{
             rightdataSource: ds.cloneWithRows(rightArray),
             leftListOffset: {x : 0, y: 0},
             loaded: false,
+
+            selected1: 'key1',
+            selected2: 'key1',
+            selected3: 'key1',
+            color: 'red',
+            mode: Picker.MODE_DIALOG,
         }
     }
 
@@ -73,6 +81,12 @@ class GridTest extends Component{
 
         };
     }*/
+    onChange = (value)=>{
+        /*let newState = {};
+        newState[this.toString()] = value;
+        this.setState(newState);*/
+        Alert.alert('Alert Title',value,[{text: 'OK', onPress: () => console.log('OK Pressed!')},]);
+    }
 
     componentDidMount(){
         this.setState({
@@ -81,14 +95,71 @@ class GridTest extends Component{
         );
     }
     onPressWelcome = ()=>{
-        //this.props.navigator.push({name: 'welcome'});
-        let alertMessage = 'Credibly reintermediate next-generation potentialities after goal-oriented ' +
-            'catalysts for change. Dynamically revolutionize.';
-        Alert.alert('Alert Title',alertMessage,[{text: 'OK', onPress: () => console.log('OK Pressed!')},]);
+        this.props.navigator.push({name: 'welcome'});
+
     }
+    /*let alertMessage = 'Credibly reintermediate next-generation potentialities after goal-oriented ' +
+     'catalysts for change. Dynamically revolutionize.';
+     Alert.alert('Alert Title',alertMessage,[{text: 'OK', onPress: () => console.log('OK Pressed!')},]);*/
     onPressPicker = ()=>{
         this.props.navigator.push({name: 'picker'});
     }
+
+
+
+    onScroll = ()=>{
+        if (this.state.loaded) {
+            var rightList = this.refs[RIGHT_LISTVIEW];
+            var y1 = rightList.scrollProperties.offset;
+            this.setState({
+                leftListOffset :{x: 0 , y: y1}
+            });
+        }
+    }
+
+    _leftRenderRow = (rowData: string, sectionID: number, rowID: number)=>{
+        return (
+            <View style={styles.leftListRow}>
+                <Text >
+                    {rowData}
+                </Text>
+            </View>
+        );
+    }
+/*selectedValue={this.state.selected1}
+ onValueChange={this.onValueChange(this, 'selected1')}*/
+    _rightRenderRow = (rowData: object, sectionID: number, rowID: number)=>{
+        //() => Alert.alert('Alert Title',alertMessage,[{text: 'OK', onPress: () => console.log('OK Pressed!')},])  <TextInput>{rowData.name}</TextInput>
+        return (
+            <View style = {styles.rightListRow}>
+                <View style = {styles.cell}>
+                    <Text>{rowData.sex}</Text>
+                </View>
+                <View style = {styles.cellView}>
+                    <Picker
+                        onValueChange={this.onChange}
+                        mode="dropdown"
+                        style={styles.picker}>
+                        <Item label="hello" value="key0" />
+                        <Item label="world" value="key1" />
+                    </Picker>
+                </View>
+                <View style = {styles.cellView}>
+                    <Text>{rowData.name}</Text>
+                </View>
+                <View style = {styles.cellView}>
+                    <Text>{rowData.name}</Text>
+                </View>
+                <View style = {styles.cellView}>
+                    <Text>{rowData.name}</Text>
+                </View>
+                <View style = {styles.cellView}>
+                    <Text>{rowData.name}</Text>
+                </View>
+            </View>
+        );
+    }
+
     render() {
         return (
             <View style = {styles.container}>
@@ -119,7 +190,7 @@ class GridTest extends Component{
                         <View style = {styles.contentView}>
                             <View style = {{width: 600 , height: 40, flexDirection:'row'}}>
                                 <TouchableHighlight
-                                    onPress={this.onPressPicker}
+                                    onPress={this.onPressWelcome}//onPressPicker
                                     underlayColor="transparent"
                                     activeOpacity={0.5}>
                                     <View style = {styles.titleView}>
@@ -156,53 +227,6 @@ class GridTest extends Component{
             </View>
         );
     }
-
-    onScroll = ()=>{
-        if (this.state.loaded) {
-            var rightList = this.refs[RIGHT_LISTVIEW];
-            var y1 = rightList.scrollProperties.offset;
-            this.setState({
-                leftListOffset :{x: 0 , y: y1}
-            });
-        }
-    }
-
-    _leftRenderRow = (rowData: string, sectionID: number, rowID: number)=>{
-        return (
-            <View style={styles.leftListRow}>
-                <Text >
-                    {rowData}
-                </Text>
-            </View>
-        );
-    }
-
-    _rightRenderRow = (rowData: object, sectionID: number, rowID: number)=>{
-
-        //() => Alert.alert('Alert Title',alertMessage,[{text: 'OK', onPress: () => console.log('OK Pressed!')},])
-        return (
-            <View style = {styles.rightListRow}>
-                <View style = {styles.cell}>
-                    <Text>{rowData.sex}</Text>
-                </View>
-                <View style = {styles.cellView}>
-                    <TextInput>{rowData.name}</TextInput>
-                </View>
-                <View style = {styles.cellView}>
-                    <Text>{rowData.name}</Text>
-                </View>
-                <View style = {styles.cellView}>
-                    <Text>{rowData.name}</Text>
-                </View>
-                <View style = {styles.cellView}>
-                    <Text>{rowData.name}</Text>
-                </View>
-                <View style = {styles.cellView}>
-                    <Text>{rowData.name}</Text>
-                </View>
-            </View>
-        );
-    }
 }
 
 class DataView extends Component{
@@ -227,7 +251,9 @@ var styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F5FCFF',
     },
-
+    picker: {
+        width: 100,
+    },
     left:{
         flex: 1,
         // backgroundColor:'yellow',
