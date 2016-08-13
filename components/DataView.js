@@ -29,7 +29,7 @@ const window = Dimensions.get('window');
 var RIGHT_LISTVIEW = 'right_listView';
 var LEFT_LISTVIEW = 'left_listView';
 
-var array = ['title1','title2','title3','title4','title5','title6','title7','title8','title','title', 'title','title','title','title','title','title','title','title','title','title'];
+var array = ['1','2','3','4','5','6','7','8','9','title', 'title','title','title','title','title','title','title','title','title','title'];
 var titleArray = ['name', 'sex', 'age' , 'firstName', 'seconName' , 'hehe'];
 var rightArray = [
     {name: 'qwe', sex: 'sex', age:'age', firstName: 'firstName', seconName:'seconName', hehe:'hehe'},
@@ -80,12 +80,6 @@ class GridTest extends Component{
 
         };
     }*/
-    onChange = (value)=>{
-        /*let newState = {};
-        newState[this.toString()] = value;
-        this.setState(newState);*/
-        Alert.alert('Alert Title',value,[{text: 'OK', onPress: () => console.log('OK Pressed!')},]);
-    }
 
     componentDidMount(){
         this.setState({
@@ -101,10 +95,16 @@ class GridTest extends Component{
      'catalysts for change. Dynamically revolutionize.';
      Alert.alert('Alert Title',alertMessage,[{text: 'OK', onPress: () => console.log('OK Pressed!')},]);*/
     onPressPicker = ()=>{
+        Alert.alert('Alert Title',alertMessage,[{text: 'OK', onPress: () => console.log('OK Pressed!')},]);
         this.props.navigator.push({name: 'picker'});
     }
 
-
+    onValChange = (key: string, value: string)=>{
+        const newState = {};
+        newState[key] = value;
+        this.setState(newState);
+        //Alert.alert('Alert Title',key+','+value,[{text: 'OK', onPress: () => console.log('OK Pressed!')}]);
+    }
 
     onScroll = ()=>{
         if (this.state.loaded) {
@@ -131,17 +131,27 @@ class GridTest extends Component{
         //() => Alert.alert('Alert Title',alertMessage,[{text: 'OK', onPress: () => console.log('OK Pressed!')},])  <TextInput>{rowData.name}</TextInput>
         return (
             <View style = {styles.rightListRow}>
-                <View style = {styles.cell}>
+                <View style = {styles.cellView}>
                     <Text>{rowData.sex}</Text>
                 </View>
                 <View style = {styles.cellView}>
                     <Picker
-                        onValueChange={this.onChange}
+                        selectedValue={this.state.selected1}
+                        onValueChange={this.onValChange.bind(this,'selected1')}
                         mode="dropdown"
                         style={styles.picker}>
                         <Item label="hello" value="key0" />
                         <Item label="world" value="key1" />
                     </Picker>
+                </View>
+                <View style = {styles.cellView}>
+                    <Text>{rowData.name}</Text>
+                </View>
+                <View style = {styles.cellView}>
+                    <Text>{rowData.name}</Text>
+                </View>
+                <View style = {styles.cellView}>
+                    <Text>{rowData.name}</Text>
                 </View>
                 <View style = {styles.cellView}>
                     <Text>{rowData.name}</Text>
@@ -164,7 +174,7 @@ class GridTest extends Component{
             <View style = {styles.container}>
                 <View style = {styles.left}>
                     <View style = {styles.mingcheng}>
-                        <Text>名称</Text>
+                        <Text>层序</Text>
                     </View>
 
                     <ListView
@@ -187,29 +197,44 @@ class GridTest extends Component{
                                 showsVerticalScrollIndicator = {false}
                                 horizontal = {true}>
                         <View style = {styles.contentView}>
-                            <View style = {{width: 600 , height: 40, flexDirection:'row'}}>
+                            <View style = {{width: 1600 , height: 40, flexDirection:'row'}}>
                                 <TouchableHighlight
-                                    onPress={this.onPressWelcome}//onPressPicker
+                                    onPress={this.onPressPicker}//onPressPicker
                                     underlayColor="transparent"
                                     activeOpacity={0.5}>
-                                    <View style = {styles.titleView}>
-                                        <Text>123</Text>
+                                    <View style = {styles.cell}>
+                                        <Text>描述深度(m)</Text>
                                     </View>
                                 </TouchableHighlight>
                                 <View style = {styles.titleView}>
-                                    <Text>123</Text>
+                                    <Text>土的名称</Text>
                                 </View>
                                 <View style = {styles.titleView}>
-                                    <Text>123</Text>
+                                    <Text>颜色</Text>
                                 </View>
                                 <View style = {styles.titleView}>
-                                    <Text>123</Text>
+                                    <Text>其他性质</Text>
                                 </View>
                                 <View style = {styles.titleView}>
-                                    <Text>123</Text>
+                                    <Text>光泽反映</Text>
                                 </View>
                                 <View style = {styles.titleView}>
-                                    <Text>123</Text>
+                                    <Text>摇振反应</Text>
+                                </View>
+                                <View style = {styles.titleView}>
+                                    <Text>干强度</Text>
+                                </View>
+                                <View style = {styles.titleView}>
+                                    <Text>韧性</Text>
+                                </View>
+                                <View style = {styles.titleView}>
+                                    <Text>状态</Text>
+                                </View>
+                                <View style = {styles.titleView}>
+                                    <Text>湿度</Text>
+                                </View>
+                                <View style = {styles.titleView}>
+                                    <Text>取土编号</Text>
                                 </View>
                             </View>
                             <ListView
@@ -228,7 +253,7 @@ class GridTest extends Component{
     }
 }
 
-class DataView extends Component{
+export default class DataView extends Component{
     /*onPressWelcome = ()=>{
         this.props.navigator.push({name: 'welcome'});
     }*/
@@ -296,7 +321,7 @@ var styles = StyleSheet.create({
     },
 
     rightListRow:{
-        width: 600 ,
+        width: 1600 ,
         height: 40,
         flexDirection:'row'
     },
@@ -314,7 +339,7 @@ var styles = StyleSheet.create({
     contentView:{
 
         height: window.height -50,
-        width: 600 ,
+        width: 1600 ,
         // backgroundColor:'yellow',
         flexDirection: 'column',
     },
@@ -402,6 +427,7 @@ var styles = StyleSheet.create({
     },
 });*/
 
+/*
 function mapStateToProps(state){
     return {
         cell : state.cell.toJS()
@@ -417,4 +443,4 @@ function mapDispatchToProps(dispatch){
 export default connect(
     mapStateToProps ,
     mapDispatchToProps
-)(DataView);
+)(DataView);*/

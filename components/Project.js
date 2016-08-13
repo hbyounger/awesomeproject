@@ -14,9 +14,9 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../actions/cell';
 import Cell from './Cell'
 
-class WelcomeView extends Component {
+class ProjectView extends Component {
     onPressMap = ()=> {
-        this.props.navigator.push({name: 'map'});
+        this.props.navigator.push({name: 'welcome'});
     }
     render() {
         /*var rows = this.state.board.grid.map((cells, row) =>
@@ -44,22 +44,18 @@ class WelcomeView extends Component {
         }
 
         return (
-            <View >
-                <Text style={{color:'#fff'}} >
-                    在钻孔图上选取点
-                </Text>
-                <TouchableHighlight
-                    onPress={this.onPressMap}
-                    underlayColor="transparent"
-                    activeOpacity={0.5}>
-                    <View style={styles.style_view_commit}>
-                        <Text style={{color:'#fff'}} >
-                            项目12345
-                        </Text>
-                    </View>
-                </TouchableHighlight>
-            </View>
-
+        <View >
+            <TouchableHighlight
+                onPress={this.onPressMap}
+                underlayColor="transparent"
+                activeOpacity={0.5}>
+                <View style={styles.style_view_commit}>
+                    <Text style={{color:'#fff'}} >
+                        加载项目
+                    </Text>
+                </View>
+            </TouchableHighlight>
+        </View>
         );
     }
 }
@@ -134,5 +130,5 @@ function mapDispatchToProps(dispatch){
 export default connect(
     mapStateToProps ,
     mapDispatchToProps
-)(WelcomeView);
+)(ProjectView);
 

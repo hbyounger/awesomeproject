@@ -71,7 +71,7 @@ class Cell extends Component{
         return (
             <View style={{position: 'absolute',top: top, left: left}}>
                 <TouchableHighlight
-                    onPress={this.onPress}
+                    onPress={this.onPress.bind(this)}
                     underlayColor="transparent"
                     activeOpacity={0.5}>
                     <View style={[styles.cell, this.cellStyle()]}>
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
         width: 16,
         height: 16,
         borderRadius: 8,
-        backgroundColor: '#7b8994',
+        backgroundColor: '#63B8FF',
         margin: 2,
         flex: 1,
         justifyContent: 'center',

@@ -32,6 +32,7 @@ import MapView from './components/MapView'
 import DataView from './components/DataView'
 import LoginView from './components/Login'
 import PickerExample from './components/Picker'
+import ProjectView from './components/Project'
 ///////////////////////////////////////////
 /*class MyScene extends Component {
     static propTypes = {
@@ -207,6 +208,9 @@ class AwesomeProject extends Component {
                 break;
             case "picker":
                 Component = <PickerExample />;
+                break;
+            case "project":
+                Component = <ProjectView navigator = {navigator}/>;
                 break;
             default: //default view PickerExample
                 Component = <DefaultView navigator = {navigator} />;

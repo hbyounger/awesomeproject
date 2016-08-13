@@ -22,24 +22,25 @@ export default class PickerExample extends Component{
      title: '<Picker>',
      description: 'Provides multiple options to choose from, using either a dropdown menu or a dialog.',
      }*/
-    constructor(props){
-        super(props);
-        this.state ={
-            selected1: 'key1',
-            selected2: 'key1',
-            selected3: 'key1',
-            color: 'red',
-            mode: Picker.MODE_DIALOG,
-        }
-    }
+    static title = '<Picker>';
+    static description = 'Provides multiple options to choose from, using either a dropdown menu or a dialog.';
+
+    state = {
+        selected1: 'key1',
+        selected2: 'key1',
+        selected3: 'key1',
+        color: 'red',
+        mode: Picker.MODE_DIALOG,
+    };
+
     onValueChange = (key: string, value: string)=>{
         let newState = {};
         newState[key] = value;
         this.setState(newState);
     }
 
-    changeMode = ()=> {
-        let newMode = this.state.mode === Picker.MODE_DIALOG
+    changeMode = ()=> {const
+         newMode = this.state.mode === Picker.MODE_DIALOG
             ? Picker.MODE_DROPDOWN
             : Picker.MODE_DIALOG;
         this.setState({mode: newMode});
@@ -53,7 +54,7 @@ export default class PickerExample extends Component{
                     <Picker
                         style={styles.picker}
                         selectedValue={this.state.selected1}
-                        onValueChange={this.onValueChange(this, 'selected1')}>
+                        onValueChange={this.onValueChange.bind(this,'selected1')}>
                         <Item label="hello" value="key0" />
                         <Item label="world" value="key1" />
                     </Picker>
@@ -68,7 +69,7 @@ export default class PickerExample extends Component{
                     <Picker
                         style={styles.picker}
                         selectedValue={this.state.selected2}
-                        onValueChange={this.onValueChange(this, 'selected2')}
+                        onValueChange={this.onValueChange.bind(this,'selected2')}
                         mode="dropdown">
                         <Item label="hello" value="key0" />
                         <Item label="world" value="key1" />
@@ -78,7 +79,7 @@ export default class PickerExample extends Component{
                     <Picker
                         style={styles.picker}
                         selectedValue={this.state.selected3}
-                        onValueChange={this.onValueChange(this, 'selected3')}
+                        onValueChange={this.onValueChange.bind(this,'selected3')}
                         prompt="Pick one, just one">
                         <Item label="hello" value="key0" />
                         <Item label="world" value="key1" />
@@ -97,7 +98,7 @@ export default class PickerExample extends Component{
                     <Picker
                         style={[styles.picker, {color: 'white', backgroundColor: '#333'}]}
                         selectedValue={this.state.color}
-                        onValueChange={this.onValueChange(this, 'color')}
+                        onValueChange={this.onValueChange.bind(this, 'color')}
                         mode="dropdown">
                         <Item label="red" color="red" value="red" />
                         <Item label="green" color="green" value="green" />
@@ -106,7 +107,7 @@ export default class PickerExample extends Component{
                     <Picker
                         style={styles.picker}
                         selectedValue={this.state.color}
-                        onValueChange={this.onValueChange(this, 'color')}
+                        onValueChange={this.onValueChange.bind(this, 'color')}
                         mode="dialog">
                         <Item label="red" color="red" value="red" />
                         <Item label="green" color="green" value="green" />
