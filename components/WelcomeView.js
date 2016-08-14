@@ -11,12 +11,15 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../actions/cell';
+//import * as actions from '../actions/cell';
+import * as projectActions from '../redux/project';
 import Cell from './Cell'
 var projectList = ['项目1','项目2','项目3','项目4','项目5'];
 class WelcomeView extends Component {
-    onPressMap = ()=> {
+    onPressMap = (value)=> {
+        let {projectActions} = this.props;
         this.props.navigator.push({name: 'map'});
+        projectActions.SetProject(value);
     }
     render() {
         /*var rows = this.state.board.grid.map((cells, row) =>
@@ -36,7 +39,7 @@ class WelcomeView extends Component {
             projectList.forEach((ele)=>{
                 ProjectArray.push(
                     <TouchableHighlight
-                        onPress={this.onPressMap}
+                        onPress={this.onPressMap.bind(this,ele)}
                         underlayColor="transparent"
                         activeOpacity={0.5}>
                         <View style={styles.style_view_commit}>
@@ -126,7 +129,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return {
-        actions : bindActionCreators( actions , dispatch )
+        projectActions : bindActionCreators( projectActions , dispatch )
     }
 }
 //export default

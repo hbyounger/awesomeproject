@@ -3,6 +3,8 @@ import { combineReducers } from 'redux'
 import login from './login'
 import cell from './cell'
 import map from '../redux/map'
+import project from '../redux/project'
+import table from '../redux/table'
 /*import demo from 'reducers/demo'
 import companyList from 'reducers/customer/companyList'
 import companyDetail from 'reducers/customer/detail'
@@ -19,6 +21,8 @@ const rootReducer = combineReducers({
 	login ,
 	cell,
 	map,
+	project,
+	table,
 	/*search,
 	davidSearch,
 	companyDetail,

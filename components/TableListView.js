@@ -11,12 +11,14 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../actions/cell';
+import * as actions from '../redux/table';
 
 var tableList = ['勘探点数据表','波速表','剖线数据表','静探表','动探表'];
 class TableListView extends Component {
-    onPressTable = ()=> {
+    onPressTable = (value)=> {
+        let {actions} = this.props;
         this.props.navigator.push({name: 'data'});
+        actions.SetTable(value);
     }
 
     render() {
@@ -26,7 +28,7 @@ class TableListView extends Component {
         tableList.forEach((ele)=>{
             tableArray.push(
                 <TouchableHighlight
-                    onPress={this.onPressTable}
+                    onPress={this.onPressTable.bind(this,ele)}
                     underlayColor="transparent"
                     activeOpacity={0.5}>
                     <View style={styles.style_view_commit}>

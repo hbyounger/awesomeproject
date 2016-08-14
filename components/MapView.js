@@ -8,10 +8,11 @@ import {
     Text,
     TouchableHighlight,
     View,
+    ScrollView,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../redux/map';
+import * as actions from '../redux/project';
 import Cell from './Cell'
 
 class MapView extends Component {
@@ -32,6 +33,7 @@ class MapView extends Component {
 
          );*/
         let PList = [],
+            {project} = this.props,
             index = 0 ;
         if(this.props.list) {
             this.props.list.forEach((ele,i)=> {
@@ -44,9 +46,15 @@ class MapView extends Component {
         }
 
         return (
-            <View style={styles.container}>
-                { PList }
-            </View>
+            <ScrollView >
+                <Text style = {styles.welcome}>{project.project+'选取钻位'}</Text>
+                <ScrollView
+                    horizontal = {true}>
+                    <View style = {styles.container}>
+                        { PList }
+                    </View>
+                </ScrollView>
+            </ScrollView>
         );
     }
 }
@@ -54,12 +62,15 @@ class MapView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        width: 500,
+        height: 900,
+        //justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#FFF',
     },
     welcome: {
-        fontSize: 20,
+        color: '#19a9e5',
+        fontSize: 18,
         textAlign: 'center',
         margin: 10,
     },
@@ -99,7 +110,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
     return {
         cell : state.cell.toJS(),
-        map : state.map.toJS(),
+        project : state.project.toJS(),
     }
 }
 

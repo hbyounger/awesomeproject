@@ -34,6 +34,7 @@ class TestInput extends Component {
     }
 
     render() {
+        //autoFocus={true}
         return (
             <View style={{backgroundColor:'#f4f4f4',flex:1}}>
                 <Image
@@ -43,7 +44,6 @@ class TestInput extends Component {
                     style={styles.style_user_input}
                     placeholder='服务器地址'
                     numberOfLines={1}
-                    autoFocus={true}
                     underlineColorAndroid={'transparent'}
                     textAlign='center'
                 />

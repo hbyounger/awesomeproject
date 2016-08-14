@@ -20,7 +20,7 @@ import {
 const Item = Picker.Item;
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../actions/cell';
+import * as actions from '../redux/table';
 import Cell from './Cell'//SvgExample
 import SvgExample from './main'
 import Example from './Map'
@@ -133,7 +133,7 @@ class GridTest extends Component{
         return (
             <View style = {styles.rightListRow}>
                 <View style = {styles.cellView}>
-                    <TextInput>{rowData.sex}</TextInput>
+                    <TextInput>{rowData.name}</TextInput>
                 </View>
                 <View style = {styles.cellView}>
                     <Picker
@@ -199,17 +199,18 @@ class GridTest extends Component{
                                 horizontal = {true}>
                         <View style = {styles.contentView}>
                             <View style = {{width: 1600 , height: 40, flexDirection:'row'}}>
+                                <View style = {styles.titleView}>
+                                    <Text>描述深度(m)</Text>
+                                </View>
                                 <TouchableHighlight
-                                    onPress={this.onPressPicker.bind(this,'描述深度(m)')}//onPressPicker
+                                    onPress={this.onPressPicker.bind(this,'土的名称')}//onPressPicker
                                     underlayColor="transparent"
                                     activeOpacity={0.5}>
                                     <View style = {styles.cell}>
-                                        <Text>描述深度(m)</Text>
+                                        <Text>土的名称</Text>
                                     </View>
                                 </TouchableHighlight>
-                                <View style = {styles.titleView}>
-                                    <Text>土的名称</Text>
-                                </View>
+
                                 <View style = {styles.titleView}>
                                     <Text>颜色</Text>
                                 </View>
@@ -253,16 +254,28 @@ class GridTest extends Component{
         );
     }
 }
-
-export default class DataView extends Component{
-    /*onPressWelcome = ()=>{
-        this.props.navigator.push({name: 'welcome'});
-    }*/
+//<SvgExample/><Example/><Game2048/><Text style={styles.instructions} onPress={this.onPressWelcome}>Default view</Text>
+class DataView extends Component{
+    onSubmit = ()=>{
+        this.props.navigator.push({name: 'map'});
+    }
 //navigator = {this.props.navigator}
+
     render(){
-        //<SvgExample/><Example/><Game2048/><Text style={styles.instructions} onPress={this.onPressWelcome}>Default view</Text>
+        let {table} = this.props;
         return (
             <ScrollView>
+                <TouchableHighlight
+                    style={[styles.style_view_commit,{top : 0 ,left : 0}]}
+                    onPress={this.onSubmit}
+                    underlayColor="transparent"
+                    activeOpacity={0.5}>
+                    <View >
+                        <Text style={{color:'#fff'}} >
+                            {table.table+'-提交'}
+                        </Text>
+                    </View>
+                </TouchableHighlight>
                 <GridTest navigator = {this.props.navigator}/>
             </ScrollView>
         )
@@ -270,9 +283,20 @@ export default class DataView extends Component{
 }
 
 var styles = StyleSheet.create({
+    style_view_commit:{
+        marginTop:0,
+        //marginLeft:10,
+        //marginRight:10,
+        backgroundColor:'#63B8FF',
+        height:35,
+        //width:60,
+        //borderRadius:5,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     container: {
         flexDirection: 'row',
-        marginTop: 20,
+        //marginTop: 20,
         flex: 1,
         backgroundColor: '#F5FCFF',
     },
@@ -366,7 +390,8 @@ var styles = StyleSheet.create({
         height:40,
         backgroundColor: '#7b8994',
         //margin: 2,
-        flex: 1,
+        //flex: 1,
+        borderTopWidth: 1,
         borderRightWidth:1,
         borderBottomWidth:1,
         justifyContent: 'center',
@@ -428,10 +453,9 @@ var styles = StyleSheet.create({
     },
 });*/
 
-/*
 function mapStateToProps(state){
     return {
-        cell : state.cell.toJS()
+        table : state.table.toJS(),
     }
 }
 
@@ -440,8 +464,8 @@ function mapDispatchToProps(dispatch){
         actions : bindActionCreators( actions , dispatch )
     }
 }
-//export default
+
 export default connect(
     mapStateToProps ,
     mapDispatchToProps
-)(DataView);*/
+)(DataView);
