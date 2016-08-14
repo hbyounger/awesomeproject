@@ -1,5 +1,5 @@
 /**
- * Created by wxk on 2016/7/18.
+ * Created by younger on 2016/8/14.
  */
 import React,{ Component } from 'react';
 import {
@@ -16,7 +16,7 @@ import Cell from './Cell'
 
 class WelcomeView extends Component {
     onPressMap = ()=> {
-        this.props.navigator.push({name: 'tablelist'});
+        this.props.navigator.push({name: 'data'});
     }
     render() {
         /*var rows = this.state.board.grid.map((cells, row) =>
@@ -137,4 +137,3 @@ export default connect(
     mapStateToProps ,
     mapDispatchToProps
 )(WelcomeView);
-

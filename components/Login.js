@@ -11,6 +11,7 @@ import {
     Image,
     View,
     TextInput,
+    Alert,
     TouchableHighlight
 } from 'react-native';
 
@@ -20,6 +21,13 @@ import * as loginActions from '../actions/login';
 
 class TestInput extends Component {
     onPress = ()=>{
+        /*let { actions } = this.props;
+        this.props.navigator.push({name: 'welcome'});*/
+        //actions.test(this.props.num);
+        const alertMessage =  '登录失败';
+        Alert.alert('alert',alertMessage,[{text: 'OK', onPress: () => console.log('OK Pressed!')},]);
+    }
+    onOfflinePress = ()=>{
         let { actions } = this.props;
         this.props.navigator.push({name: 'welcome'});
         //actions.test(this.props.num);
@@ -71,6 +79,20 @@ class TestInput extends Component {
                             登录
                         </Text>
 
+                    </View>
+                </TouchableHighlight>
+                <TouchableHighlight
+                    onPress={this.onOfflinePress}
+                    underlayColor="transparent"
+                    activeOpacity={0.5}>
+                    <View
+                        style={styles.style_view_commit}
+                    >
+                        <Text
+                            style={{color:'#fff'}}
+                        >
+                            离线登录
+                        </Text>
                     </View>
                 </TouchableHighlight>
                 <View style={{flex:1,flexDirection:'row',alignItems: 'flex-end',bottom:10}}>

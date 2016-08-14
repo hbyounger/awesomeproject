@@ -132,7 +132,7 @@ class GridTest extends Component{
         return (
             <View style = {styles.rightListRow}>
                 <View style = {styles.cellView}>
-                    <Text>{rowData.sex}</Text>
+                    <TextInput>{rowData.sex}</TextInput>
                 </View>
                 <View style = {styles.cellView}>
                     <Picker

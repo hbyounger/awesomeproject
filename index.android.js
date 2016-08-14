@@ -33,6 +33,7 @@ import DataView from './components/DataView'
 import LoginView from './components/Login'
 import PickerExample from './components/Picker'
 import ProjectView from './components/Project'
+import TableListView from './components/TableListView'
 ///////////////////////////////////////////
 /*class MyScene extends Component {
     static propTypes = {
@@ -150,7 +151,7 @@ class AwesomeProject extends Component {
      *  - Navigator.SceneConfigs.VerticalUpSwipeJump
      *  - Navigator.SceneConfigs.VerticalDownSwipeJump*/
     configureScene = (route)=>{
-        return Navigator.SceneConfigs.FloatFromRight;
+        return Navigator.SceneConfigs.PushFromRight;
     }
 
    /* renderScene = (router, navigator)=>{
@@ -199,7 +200,6 @@ class AwesomeProject extends Component {
             case "point":
                 Component = <PointData navigator = {navigator} />;
                 break;
-            //
             case "data":
                 Component = <DataView navigator = {navigator} />;
                 break;
@@ -211,6 +211,9 @@ class AwesomeProject extends Component {
                 break;
             case "project":
                 Component = <ProjectView navigator = {navigator}/>;
+                break;
+            case "tablelist":
+                Component = <TableListView navigator = {navigator}/>;
                 break;
             default: //default view PickerExample
                 Component = <DefaultView navigator = {navigator} />;
