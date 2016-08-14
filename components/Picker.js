@@ -46,7 +46,9 @@ export default class PickerExample extends Component{
         this.setState({mode: newMode});
     }
 
-
+    onSubmit = ()=>{
+        this.props.navigator.push({name: 'data'});
+    }
     render() {
         return (
             <View title="<Picker>">
@@ -114,6 +116,17 @@ export default class PickerExample extends Component{
                         <Item label="blue" color="blue" value="blue" />
                     </Picker>
                 </View>
+                <TouchableHighlight
+                    style={[styles.style_view_commit,{top : 0 ,left : 0}]}
+                    onPress={this.onSubmit}
+                    underlayColor="transparent"
+                    activeOpacity={0.5}>
+                    <View >
+                        <Text style={{color:'#fff'}} >
+                            {'提交'}
+                        </Text>
+                    </View>
+                </TouchableHighlight>
             </View>
         );
     }
@@ -122,5 +135,16 @@ export default class PickerExample extends Component{
 var styles = StyleSheet.create({
     picker: {
         width: 100,
+    },
+    style_view_commit:{
+        marginTop:0,
+        //marginLeft:10,
+        //marginRight:10,
+        backgroundColor:'#63B8FF',
+        height:35,
+        //width:60,
+        //borderRadius:5,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });

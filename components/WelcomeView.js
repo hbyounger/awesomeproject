@@ -21,6 +21,9 @@ class WelcomeView extends Component {
         this.props.navigator.push({name: 'map'});
         projectActions.SetProject(value);
     }
+    onSubmit = ()=>{
+        this.props.navigator.push({name: 'login'});
+    }
     render() {
         /*var rows = this.state.board.grid.map((cells, row) =>
          <View key={'row' + row} style={styles.row}>
@@ -59,6 +62,17 @@ class WelcomeView extends Component {
                     选择项目
                 </Text>
                 {ProjectArray}
+                <TouchableHighlight
+                    style={[styles.style_view_exit,{top : 0 ,left : 0}]}
+                    onPress={this.onSubmit}
+                    underlayColor="transparent"
+                    activeOpacity={0.5}>
+                    <View >
+                        <Text style={{color:'#fff'}} >
+                            {'退出'}
+                        </Text>
+                    </View>
+                </TouchableHighlight>
             </View>
 
         );
@@ -66,6 +80,17 @@ class WelcomeView extends Component {
 }
 
 const styles = StyleSheet.create({
+    style_view_exit:{
+        marginTop:25,
+        marginLeft:10,
+        marginRight:10,
+        backgroundColor:'#63B8FF',
+        height:35,
+        //width:60,
+        //borderRadius:5,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     container: {
         flex: 1,
         justifyContent: 'center',

@@ -146,25 +146,25 @@ class GridTest extends Component{
                     </Picker>
                 </View>
                 <View style = {styles.cellView}>
-                    <Text>{rowData.name}</Text>
+                    <TextInput>{rowData.name}</TextInput>
                 </View>
                 <View style = {styles.cellView}>
-                    <Text>{rowData.name}</Text>
+                    <TextInput>{rowData.name}</TextInput>
                 </View>
                 <View style = {styles.cellView}>
-                    <Text>{rowData.name}</Text>
+                    <TextInput>{rowData.name}</TextInput>
                 </View>
                 <View style = {styles.cellView}>
-                    <Text>{rowData.name}</Text>
+                    <TextInput>{rowData.name}</TextInput>
                 </View>
                 <View style = {styles.cellView}>
-                    <Text>{rowData.name}</Text>
+                    <TextInput>{rowData.name}</TextInput>
                 </View>
                 <View style = {styles.cellView}>
-                    <Text>{rowData.name}</Text>
+                    <TextInput>{rowData.name}</TextInput>
                 </View>
                 <View style = {styles.cellView}>
-                    <Text>{rowData.name}</Text>
+                    <TextInput>{rowData.name}</TextInput>
                 </View>
             </View>
         );

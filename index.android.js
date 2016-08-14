@@ -213,7 +213,7 @@ class AwesomeProject extends Component {
                 Component = <LoginView navigator = {navigator} />;
                 break;
             case "picker":
-                Component = <PickerExample />;
+                Component = <PickerExample navigator = {navigator}/>;
                 break;
             case "project":
                 Component = <ProjectView navigator = {navigator}/>;

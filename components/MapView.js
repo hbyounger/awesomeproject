@@ -19,6 +19,9 @@ class MapView extends Component {
     onPressFeed = ()=> {
         this.props.navigator.push({name: 'feed'});
     };
+    onSubmit = ()=>{
+        this.props.navigator.push({name: 'welcome'});
+    }
     render() {
         /*var rows = this.state.board.grid.map((cells, row) =>
          <View key={'row' + row} style={styles.row}>
@@ -50,20 +53,40 @@ class MapView extends Component {
                 <Text style = {styles.welcome}>{project.project+'选取钻位'}</Text>
                 <ScrollView
                     horizontal = {true}>
-                    <View style = {styles.container}>
+                    <View style = {[styles.container,{width: 500,height: 900,}]}>
                         { PList }
                     </View>
                 </ScrollView>
+                <TouchableHighlight
+                    style={[styles.style_view_commit,{top : 0 ,left : 0}]}
+                    onPress={this.onSubmit}
+                    underlayColor="transparent"
+                    activeOpacity={0.5}>
+                    <View >
+                        <Text style={{color:'#fff'}} >
+                            {'提交'}
+                        </Text>
+                    </View>
+                </TouchableHighlight>
             </ScrollView>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    style_view_commit:{
+        marginTop:0,
+        //marginLeft:10,
+        //marginRight:10,
+        backgroundColor:'#63B8FF',
+        height:35,
+        //width:60,
+        //borderRadius:5,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     container: {
         flex: 1,
-        width: 500,
-        height: 900,
         //justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#FFF',
