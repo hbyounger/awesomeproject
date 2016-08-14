@@ -81,6 +81,12 @@ class AwesomeProject extends Component {
         this.startY = 0;
         this.list = [
             {top : 0 ,left : 0},
+            {top : 55 ,left : 66},
+            {top : 77 ,left : 23},
+            {top : 111 ,left : 99},
+            {top : 222 ,left : 44},
+            {top : 333 ,left : 111},
+            {top : 166 ,left : 55},
             {top : Dimensions.get('window').height-45,left : 0},
             {top : Dimensions.get('window').height-45,left : Dimensions.get('window').width-20},
             {top : 0,left : Dimensions.get('window').width-20},

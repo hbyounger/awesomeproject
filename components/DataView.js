@@ -94,9 +94,8 @@ class GridTest extends Component{
     /*let alertMessage = 'Credibly reintermediate next-generation potentialities after goal-oriented ' +
      'catalysts for change. Dynamically revolutionize.';
      Alert.alert('Alert Title',alertMessage,[{text: 'OK', onPress: () => console.log('OK Pressed!')},]);*/
-    onPressPicker = ()=>{
-        let alertMessage = 'Credibly reintermediate next-generation potentialities after goal-oriented ' +
-            'catalysts for change. Dynamically revolutionize.';
+    onPressPicker = (value)=>{
+        let alertMessage = value;
         Alert.alert('Alert Title',alertMessage,[{text: 'OK', onPress: () => console.log('OK Pressed!')},]);
         this.props.navigator.push({name: 'picker'});
     }
@@ -201,7 +200,7 @@ class GridTest extends Component{
                         <View style = {styles.contentView}>
                             <View style = {{width: 1600 , height: 40, flexDirection:'row'}}>
                                 <TouchableHighlight
-                                    onPress={this.onPressPicker}//onPressPicker
+                                    onPress={this.onPressPicker.bind(this,'描述深度(m)')}//onPressPicker
                                     underlayColor="transparent"
                                     activeOpacity={0.5}>
                                     <View style = {styles.cell}>
