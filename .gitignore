@@ -73,3 +73,6 @@ buck-out/
 \.buckd/
 android/app/libs
 android/keystores/debug.keystore
+2048/
+Movies/
+TicTacToe/
