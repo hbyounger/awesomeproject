@@ -1,38 +1,15 @@
 /**
- * Created by younger on 2016/7/17.
+ * Created by younger on 2016/8/14.
  */
 import Immutable from 'immutable'
 const $$initialState = Immutable.fromJS({});
-import {
-    Dimensions,
-    ListView,
-    Navigator,
-    StyleSheet,
-    Text,
-    TouchableHighlight,
-    View,
-    TextInput,
-    ScrollView,
-    Alert,
-    Picker
-} from 'react-native';
 
-export default function cell( $$state = $$initialState , action ){
+
+
+export default function map( $$state = $$initialState , action ){
     let status,
         account;
     switch(action.type){
-        case 'MAP_SET_POSITION' :
-            console.log('MAP_SET_POSITION');
-            console.log(action.value);
-            return $$state.merge({
-                position : action.value
-            });
-            break;
-        case 'TEST' :
-            return $$state.merge({
-                value : action.value+1
-            });
-            break;
         case 'ALOGIN' :
             //logresult : action.logresult,
             //console.log('alogresult-'+ action.logresult);

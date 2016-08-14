@@ -11,13 +11,13 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../actions/cell';
+import * as actions from '../redux/map';
 import Cell from './Cell'
 
 class MapView extends Component {
     onPressFeed = ()=> {
         this.props.navigator.push({name: 'feed'});
-    }
+    };
     render() {
         /*var rows = this.state.board.grid.map((cells, row) =>
          <View key={'row' + row} style={styles.row}>
@@ -98,7 +98,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
     return {
-        cell : state.cell.toJS()
+        cell : state.cell.toJS(),
+        map : state.map.toJS(),
     }
 }
 

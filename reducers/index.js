@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 //import { routerReducer as routing } from 'react-router-redux'
 import login from './login'
 import cell from './cell'
+import map from '../redux/map'
 /*import demo from 'reducers/demo'
 import companyList from 'reducers/customer/companyList'
 import companyDetail from 'reducers/customer/detail'
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
 /*	demo ,
 	companyList,*/
 	login ,
-	cell
+	cell,
+	map,
 	/*search,
 	davidSearch,
 	companyDetail,

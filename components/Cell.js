@@ -52,6 +52,7 @@ class Cell extends Component{
     onPress = ()=>{
         let { actions } = this.props;
         this.props.navigator.push({name: 'tablelist'});
+        actions.SetPosition(this.props.num);
         //actions.test(this.props.num);
     }
 

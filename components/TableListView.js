@@ -12,28 +12,38 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../actions/cell';
-import Cell from './Cell'
 
+var tableList = ['勘探点数据表','波速表','剖线数据表','静探表','动探表'];
 class TableListView extends Component {
     onPressTable = ()=> {
         this.props.navigator.push({name: 'data'});
     }
+
     render() {
-        return (
-            <View >
-                <Text style={styles.welcome} >
-                    选择数据表
-                </Text>
+        let tableArray = [];
+        let {cell} = this.props;
+        console.log(this.props);
+        tableList.forEach((ele)=>{
+            tableArray.push(
                 <TouchableHighlight
                     onPress={this.onPressTable}
                     underlayColor="transparent"
                     activeOpacity={0.5}>
                     <View style={styles.style_view_commit}>
                         <Text style={{color:'#fff'}} >
-                            数据表1
+                            {ele}
                         </Text>
                     </View>
                 </TouchableHighlight>
+            )
+        });
+
+        return (
+            <View >
+                <Text style={styles.welcome} >
+                    {'钻位'+cell.position+'-选择数据表'}
+                </Text>
+                {tableArray}
             </View>
 
         );

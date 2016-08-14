@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../actions/cell';
 import Cell from './Cell'
-
+var projectList = ['项目1','项目2','项目3','项目4','项目5'];
 class WelcomeView extends Component {
     onPressMap = ()=> {
         this.props.navigator.push({name: 'map'});
@@ -31,15 +31,21 @@ class WelcomeView extends Component {
          </View>
 
          );*/
-        let PList = [],
-            index = 0 ;
-        if(this.props.list) {
-            this.props.list.forEach((ele)=> {
-                PList.push(<Cell
-                    Point = {ele}
-                    key = {index++}
-                    navigator = {this.props.navigator}
-                />)//<TicTacToeApp/>
+        let ProjectArray = []
+        if(projectList){
+            projectList.forEach((ele)=>{
+                ProjectArray.push(
+                    <TouchableHighlight
+                        onPress={this.onPressMap}
+                        underlayColor="transparent"
+                        activeOpacity={0.5}>
+                        <View style={styles.style_view_commit}>
+                            <Text style={{color:'#fff'}} >
+                                {ele}
+                            </Text>
+                        </View>
+                    </TouchableHighlight>
+                )
             })
         }
 
@@ -49,16 +55,7 @@ class WelcomeView extends Component {
                 <Text style={styles.welcome} >
                     选择项目
                 </Text>
-                <TouchableHighlight
-                    onPress={this.onPressMap}
-                    underlayColor="transparent"
-                    activeOpacity={0.5}>
-                    <View style={styles.style_view_commit}>
-                        <Text style={{color:'#fff'}} >
-                            项目12345
-                        </Text>
-                    </View>
-                </TouchableHighlight>
+                {ProjectArray}
             </View>
 
         );

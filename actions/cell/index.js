@@ -10,3 +10,13 @@ export function test(value){
         })
     }
 }
+
+export function SetPosition(value){
+    return function(dispatch){
+        //console.log('SETACCOUNT'+value);
+        dispatch({
+            type : 'MAP_SET_POSITION',
+            value : value
+        })
+    }
+}
