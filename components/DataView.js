@@ -95,6 +95,8 @@ class GridTest extends Component{
      'catalysts for change. Dynamically revolutionize.';
      Alert.alert('Alert Title',alertMessage,[{text: 'OK', onPress: () => console.log('OK Pressed!')},]);*/
     onPressPicker = ()=>{
+        let alertMessage = 'Credibly reintermediate next-generation potentialities after goal-oriented ' +
+            'catalysts for change. Dynamically revolutionize.';
         Alert.alert('Alert Title',alertMessage,[{text: 'OK', onPress: () => console.log('OK Pressed!')},]);
         this.props.navigator.push({name: 'picker'});
     }

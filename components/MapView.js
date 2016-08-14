@@ -34,10 +34,10 @@ class MapView extends Component {
         let PList = [],
             index = 0 ;
         if(this.props.list) {
-            this.props.list.forEach((ele)=> {
+            this.props.list.forEach((ele,i)=> {
                 PList.push(<Cell
                     Point = {ele}
-                    key = {index++}
+                    num = {i}
                     navigator = {this.props.navigator}
                 />)//<TicTacToeApp/>
             })

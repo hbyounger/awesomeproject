@@ -16,7 +16,7 @@ import Cell from './Cell'
 
 class WelcomeView extends Component {
     onPressMap = ()=> {
-        this.props.navigator.push({name: 'tablelist'});
+        this.props.navigator.push({name: 'map'});
     }
     render() {
         /*var rows = this.state.board.grid.map((cells, row) =>

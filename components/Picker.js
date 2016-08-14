@@ -39,8 +39,8 @@ export default class PickerExample extends Component{
         this.setState(newState);
     }
 
-    changeMode = ()=> {const
-         newMode = this.state.mode === Picker.MODE_DIALOG
+    changeMode = ()=> {
+        const  newMode = this.state.mode === Picker.MODE_DIALOG
             ? Picker.MODE_DROPDOWN
             : Picker.MODE_DIALOG;
         this.setState({mode: newMode});

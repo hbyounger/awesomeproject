@@ -18,9 +18,9 @@ class Cell extends Component{
     cellStyle() {
         switch (1) {
             case 1:
-                return styles.cellX;
-            case 2:
                 return styles.cellO;
+            case 2:
+                return styles.cellX;
             default:
                 return null;
         }
@@ -29,9 +29,9 @@ class Cell extends Component{
     textStyle() {
         switch (1) {
             case 1:
-                return styles.cellTextX;
-            case 2:
                 return styles.cellTextO;
+            case 2:
+                return styles.cellTextX;
             default:
                 return {};
         }
@@ -51,7 +51,7 @@ class Cell extends Component{
     }
     onPress = ()=>{
         let { actions } = this.props;
-        this.props.navigator.push({name: 'data'});
+        this.props.navigator.push({name: 'tablelist'});
         //actions.test(this.props.num);
     }
 
@@ -76,7 +76,7 @@ class Cell extends Component{
                     activeOpacity={0.5}>
                     <View style={[styles.cell, this.cellStyle()]}>
                         <Text style={[styles.cellText, this.textStyle()]}>
-                            {this.props.key}
+                            {this.props.num}
                         </Text>
                     </View>
                 </TouchableHighlight>
@@ -84,7 +84,7 @@ class Cell extends Component{
         );
     }
 }
-
+//this.props.key
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -114,9 +114,9 @@ const styles = StyleSheet.create({
     // CELL
 
     cell: {
-        width: 16,
-        height: 16,
-        borderRadius: 8,
+        width: 18,
+        height: 18,
+        borderRadius: 9,
         backgroundColor: '#63B8FF',
         margin: 2,
         flex: 1,
@@ -136,14 +136,15 @@ const styles = StyleSheet.create({
     // CELL TEXT
 
     cellText: {
-        fontSize: 5,
+        fontSize: 10,
         fontFamily: 'AvenirNext-Bold',
     },
     cellTextX: {
         color: '#19a9e5',
     },
     cellTextO: {
-        color: '#b9dc2f',
+        //color: '#b9dc2f',
+        color: '#fff',
     },
 
     // GAME OVER

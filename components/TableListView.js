@@ -14,48 +14,23 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../actions/cell';
 import Cell from './Cell'
 
-class WelcomeView extends Component {
-    onPressMap = ()=> {
+class TableListView extends Component {
+    onPressTable = ()=> {
         this.props.navigator.push({name: 'data'});
     }
     render() {
-        /*var rows = this.state.board.grid.map((cells, row) =>
-         <View key={'row' + row} style={styles.row}>
-         {cells.map((player, col) =>
-         <Cell
-         key={'cell' + col}
-         player={player}
-         onPress={this.handleCellPress.bind(this, row, col)}
-         />
-         )}
-         </View>
-
-         );*/
-        let PList = [],
-            index = 0 ;
-        if(this.props.list) {
-            this.props.list.forEach((ele)=> {
-                PList.push(<Cell
-                    Point = {ele}
-                    key = {index++}
-                    navigator = {this.props.navigator}
-                />)//<TicTacToeApp/>
-            })
-        }
-
         return (
-
             <View >
                 <Text style={styles.welcome} >
-                    选择项目
+                    选择数据表
                 </Text>
                 <TouchableHighlight
-                    onPress={this.onPressMap}
+                    onPress={this.onPressTable}
                     underlayColor="transparent"
                     activeOpacity={0.5}>
                     <View style={styles.style_view_commit}>
                         <Text style={{color:'#fff'}} >
-                            项目12345
+                            数据表1
                         </Text>
                     </View>
                 </TouchableHighlight>
@@ -136,4 +111,4 @@ function mapDispatchToProps(dispatch){
 export default connect(
     mapStateToProps ,
     mapDispatchToProps
-)(WelcomeView);
+)(TableListView);
