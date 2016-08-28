@@ -5,20 +5,27 @@
  *
  */
 'use strict';
+import React, { Component } from 'react';
+//var React = require('react-native');
+import SQLite from'react-native-sqlite-storage';
 
-var React = require('react-native');
-var SQLite = require('react-native-sqlite-storage');
 SQLite.DEBUG(true);
 SQLite.enablePromise(true);
 SQLite.enablePromise(false);
 
-var {
+import {
   AppRegistry,
   StyleSheet,
   Text,
   View,
   ListView
-} = React;
+} from 'react-native';
+
+import { Provider } from 'react-redux'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+import * as projectActions from '../redux/project';
 
 var database_name = "Test.db";
 var database_version = "1.0";
@@ -44,7 +51,7 @@ class SQLiteDemo extends Component{
     errorCB = (err)=>{
         console.log("error: ",err);
         this.state.progress.push("Error: "+ (err.message || err));
-        this.setState(this.state);
+        //this.setState(this.state);
         return false;
     }
 
@@ -54,43 +61,47 @@ class SQLiteDemo extends Component{
 
     openCB = ()=>{
         this.state.progress.push("Database OPEN");
-        this.setState(this.state);
+        //this.setState(this.state);
     }
 
     closeCB = ()=>{
         this.state.progress.push("Database CLOSED");
-        this.setState(this.state);
+        //this.setState(this.state);
     }
 
     deleteCB = ()=>{
         console.log("Database DELETED");
         this.state.progress.push("Database DELETED");
-        this.setState(this.state);
+        //this.setState(this.state);
     }
 
     populateDatabase = (db)=>{
         this.state.progress.push("Database integrity check");
-        this.setState(this.state);
+        //this.setState(this.state);
+        console.log(db);
+        if(db){
+
+        }
         db.executeSql('SELECT 1 FROM Version LIMIT 1', [],
-            function () {
+            ()=>{
                 this.state.progress.push("Database is ready ... executing query ...");
                 this.setState(this.state);
-                db.transaction(this.queryEmployees,this.errorCB,function() {
+                db.transaction(this.queryEmployees,this.errorCB,()=> {
                     this.state.progress.push("Processing completed");
                     this.setState(this.state);
                 });
             },
-            function (error) {
+            (error)=>{
                 console.log("received version error:", error);
                 this.state.progress.push("Database not yet ready ... populating data");
-                this.setState(this.state);
-                db.transaction(this.populateDB, this.errorCB, function () {
+                //this.setState(this.state);
+                db.transaction(this.populateDB, this.errorCB, ()=>{
                     this.state.progress.push("Database populated ... executing query ...");
-                    this.setState(this.state);
-                    db.transaction(this.queryEmployees,this.errorCB, function () {
+                    //this.setState(this.state);
+                    db.transaction(this.queryEmployees,this.errorCB, ()=>{
                         console.log("Transaction is now finished"); 
                         this.state.progress.push("Processing completed");
-                        this.setState(this.state);
+                        //this.setState(this.state);
                         this.closeDatabase();
                     });
                 });
@@ -99,14 +110,14 @@ class SQLiteDemo extends Component{
 
     populateDB = (tx)=>{
         this.state.progress.push("Executing DROP stmts");
-        this.setState(this.state);
+        //this.setState(this.state);
 
         tx.executeSql('DROP TABLE IF EXISTS Employees;');
         tx.executeSql('DROP TABLE IF EXISTS Offices;');
         tx.executeSql('DROP TABLE IF EXISTS Departments;');
 
         this.state.progress.push("Executing CREATE stmts");
-        this.setState(this.state);
+        //this.setState(this.state);
 
         tx.executeSql('CREATE TABLE IF NOT EXISTS Version( '
             + 'version_id INTEGER PRIMARY KEY NOT NULL); ', [], this.successCB, this.errorCB);
@@ -130,7 +141,7 @@ class SQLiteDemo extends Component{
             + 'FOREIGN KEY ( department ) REFERENCES Departments ( department_id ));', []);
 
         this.state.progress.push("Executing INSERT stmts");
-        this.setState(this.state);
+        //this.setState(this.state);
 
         tx.executeSql('INSERT INTO Departments (name) VALUES ("Client Services");', []);
         tx.executeSql('INSERT INTO Departments (name) VALUES ("Investor Services");', []);
@@ -163,7 +174,7 @@ class SQLiteDemo extends Component{
 
     queryEmployeesSuccess = (tx,results)=>{
         this.state.progress.push("Query completed");
-        this.setState(this.state);
+        //this.setState(this.state);
         var len = results.rows.length;
         for (let i = 0; i < len; i++) {
             let row = results.rows.item(i);
@@ -174,14 +185,16 @@ class SQLiteDemo extends Component{
 
     loadAndQueryDB = ()=>{
         this.state.progress.push("Opening database ...");
-        this.setState(this.state);
+        //this.setState(this.state);
+        console.log(this.state);
         db = SQLite.openDatabase(database_name, database_version, database_displayname, database_size, this.openCB, this.errorCB);
+        console.log(db);
         this.populateDatabase(db);
     }
 
     deleteDatabase = ()=>{
         this.state.progress = ["Deleting database"];
-        this.setState(this.state);
+        //this.setState(this.state);
         SQLite.deleteDatabase(database_name, this.deleteCB, this.errorCB);
     }
 
@@ -189,17 +202,18 @@ class SQLiteDemo extends Component{
         if (db) {
             console.log("Closing database ...");
             this.state.progress.push("Closing database");
-            this.setState(this.state);
+            //this.setState(this.state);
             db.close(this.closeCB,this.errorCB);
         } else {
             this.state.progress.push("Database was not OPENED");
-            this.setState(this.state);
+            //this.setState(this.state);
         }
     }
 
     runDemo = ()=>{
         this.state.progress = ["Starting SQLite Demo"];
-        this.setState(this.state);
+        console.log(this.state)
+        //this.setState(this.state);
         this.loadAndQueryDB();
     }
 

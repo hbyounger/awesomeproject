@@ -253,7 +253,7 @@ class AwesomeProject extends Component {
         return (
             <Provider store={store}>
                 <Navigator
-                    initialRoute={{name: 'login'}}
+                    initialRoute={{name: 'callback'}}
                     configureScene={ this.configureScene }
                     renderScene={ this.renderScene }
                 />

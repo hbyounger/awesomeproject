@@ -11,24 +11,33 @@
  */
 'use strict';
 
-var React = require('react-native');
-var SQLite = require('react-native-sqlite-storage');
+/*var React = require('react-native');
+var SQLite = require('react-native-sqlite-storage');*/
+import React, { Component } from 'react';
+import SQLite from'react-native-sqlite-storage';
+
 SQLite.DEBUG(true);
 SQLite.enablePromise(true);
 
-var {
+import {
   AppRegistry,
   StyleSheet,
   Text,
   View,
   ListView
-} = React;
+}from 'react-native';
+
+import { Provider } from 'react-redux'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 var database_name = "Test.db";
 var database_version = "1.0";
 var database_displayname = "SQLite Test Database";
 var database_size = 200000;
 var db;
+
+import * as projectActions from '../redux/project';
 
 class SQLiteDemo extends Component{
     constructor(props){
