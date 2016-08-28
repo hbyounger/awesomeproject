@@ -30,38 +30,41 @@ var database_displayname = "SQLite Test Database";
 var database_size = 200000;
 var db;
 
-var SQLiteDemo = React.createClass({
-    getInitialState(){
-        return {
+class SQLiteDemo extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
             progress: [],
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2) => { row1 !== row2; },
             })
         };
-    },
+    }
 
     componentWillUnmount(){
         this.closeDatabase();
-    },
+    }
 
-    errorCB(err) {
+    errorCB = (err)=>{
         console.log("error: ",err);
         this.state.progress.push("Error " + (err.message || err));
         this.setState(this.state);
-    },
+    }
 
-    populateDatabase(db){
+    populateDatabase = (db)=>{
         var that = this;
         that.state.progress.push("Database integrity check");
         that.setState(that.state);
-        db.executeSql('SELECT 1 FROM Version LIMIT 1').then(() =>{
+        db
+            .executeSql('SELECT 1 FROM Version LIMIT 1').then(() =>{
             that.state.progress.push("Database is ready ... executing query ...");
             that.setState(that.state);
             db.transaction(that.queryEmployees).then(() => {
                 that.state.progress.push("Processing completed");
                 that.setState(that.state);
             });
-        }).catch((error) =>{
+        })
+            .catch((error) =>{
             console.log("Received error: ", error)
             that.state.progress.push("Database not yet ready ... populating data");
             that.setState(that.state);
@@ -75,9 +78,9 @@ var SQLiteDemo = React.createClass({
                     that.closeDatabase()});
             });
         });
-    },
+    }
 
-    populateDB(tx) {
+    populateDB = (tx)=>{
         var that = this;
         this.state.progress.push("Executing DROP stmts");
         this.setState(this.state);
@@ -142,9 +145,9 @@ var SQLiteDemo = React.createClass({
         tx.executeSql('INSERT INTO Employees (name, office, department) VALUES ("Dr DRE", 2, 2);');
         tx.executeSql('INSERT INTO Employees (name, office, department) VALUES ("Samantha Fox", 2, 1);');
         console.log("all config SQL done");
-    },
+    }
 
-    queryEmployees(tx) {
+    queryEmployees = (tx)=>{
         var that = this;
         console.log("Executing employee query");
         tx.executeSql('SELECT a.name, b.name as deptName FROM Employees a, Departments b WHERE a.department = b.department_id').then(([tx,results]) => {
@@ -159,9 +162,9 @@ var SQLiteDemo = React.createClass({
         }).catch((error) => { 
             console.log(error);
         });
-    },
+    }
 
-    loadAndQueryDB(){
+    loadAndQueryDB = ()=>{
         var that = this;
         that.state.progress.push("Plugin integrity check ...");
         that.setState(that.state);
@@ -182,9 +185,9 @@ var SQLiteDemo = React.createClass({
             that.state.progress.push("echoTest failed - plugin not functional");
             that.setState(that.state);
         });
-    },
+    }
 
-    closeDatabase(){
+    closeDatabase = ()=>{
         var that = this;
         if (db) {
             console.log("Closing database ...");
@@ -196,13 +199,14 @@ var SQLiteDemo = React.createClass({
             }).catch((error) => {
                 that.errorCB(error);
             });
-        } else {
+        }
+        else {
             that.state.progress.push("Database was not OPENED");
             that.setState(that.state);
         }
-    },
+    }
 
-    deleteDatabase(){
+    deleteDatabase = ()=>{
         var that = this;
         that.state.progress = ["Deleting database"];
         that.setState(that.state);
@@ -213,21 +217,21 @@ var SQLiteDemo = React.createClass({
         }).catch((error) => {
             that.errorCB(error);
         });
-    },
+    }
 
-    runDemo(){
+    runDemo = ()=>{
         this.state.progress = ["Starting SQLite Demo"];
         this.setState(this.state);
         this.loadAndQueryDB();
-    },
+    }
 
-    renderProgressEntry(entry){
+    renderProgressEntry = (entry)=>{
         return (<View style={listStyles.li}>
             <View>
                 <Text style={listStyles.title}>{entry}</Text>
             </View>
         </View>)
-    },
+    }
 
     render(){
         var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => { row1 !== row2;}});
@@ -249,7 +253,7 @@ var SQLiteDemo = React.createClass({
                 style={listStyles.liContainer}/>
         </View>);
     }
-});
+}
 
 var listStyles = StyleSheet.create({
     li: {
@@ -309,4 +313,19 @@ var styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('SQLiteDemo', () => SQLiteDemo);
+function mapStateToProps(state){
+    return {
+        cell : state.cell.toJS()
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return {
+        projectActions : bindActionCreators( projectActions , dispatch )
+    }
+}
+//export default
+export default connect(
+    mapStateToProps ,
+    mapDispatchToProps
+)(SQLiteDemo);

@@ -34,6 +34,8 @@ import LoginView from './components/Login'
 import PickerExample from './components/Picker'
 import ProjectView from './components/Project'
 import TableListView from './components/TableListView'
+import Callback from './components/Callback';
+import Promise from './components/Promise';
 ///////////////////////////////////////////
 /*class MyScene extends Component {
     static propTypes = {
@@ -220,6 +222,12 @@ class AwesomeProject extends Component {
                 break;
             case "tablelist":
                 Component = <TableListView navigator = {navigator}/>;
+                break;
+            case 'callback':
+                Component = <Callback navigator = {navigator}/>;
+                break;
+            case 'promise':
+                Component = <Promise navigator = {navigator}/>;
                 break;
             default: //default view PickerExample
                 Component = <DefaultView navigator = {navigator} />;
